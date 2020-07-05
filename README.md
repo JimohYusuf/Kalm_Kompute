@@ -17,9 +17,9 @@ Kindly follow the steps below carefully to set up your application.
     2. Open the program [WIFI_PRO_02_join.pde](https://github.com/RISC-NYUAD/calm_computing/blob/master/1/WIFI_PRO_02_join/WIFI_PRO_02_join.pde), change the IP address in line 65 to the IP address found in step 3. Upload the code to the board
     3. Open the program [main_http.pde](https://github.com/RISC-NYUAD/calm_computing/blob/master/1/main_http/main_http.pde), change the IP address in line 8 to the IP address found in step 3 above. Upload the code to the board
 5. For the Plug & Sense connected to computer 2:
-    4. Open the program [WIFI_PRO_01_configure_essid.pde](https://github.com/RISC-NYUAD/calm_computing/blob/master/2/WIFI_PRO_01_configure_essid/WIFI_PRO_01_configure_essid.pde), change the variable ESSID and the PASS in line 11 to the Wifi Name and Password of the router. Upload the code to the board
-    5. Open the program [WIFI_PRO_02_join.pde](https://github.com/RISC-NYUAD/calm_computing/blob/master/2/WIFI_PRO_02_join/WIFI_PRO_02_join.pde), change the IP address in line 65 to the IP address found in step 3. Upload the code to the board
-    6. Open the program [main_http.pde](https://github.com/RISC-NYUAD/calm_computing/blob/master/2/main_http/main_http.pde), change the IP address in line 13 to the IP address found in step 3 above. Upload the code to the board
+    1. Open the program [WIFI_PRO_01_configure_essid.pde](https://github.com/RISC-NYUAD/calm_computing/blob/master/2/WIFI_PRO_01_configure_essid/WIFI_PRO_01_configure_essid.pde), change the variable ESSID and the PASS in line 11 to the Wifi Name and Password of the router. Upload the code to the board
+    2. Open the program [WIFI_PRO_02_join.pde](https://github.com/RISC-NYUAD/calm_computing/blob/master/2/WIFI_PRO_02_join/WIFI_PRO_02_join.pde), change the IP address in line 65 to the IP address found in step 3. Upload the code to the board
+    3. Open the program [main_http.pde](https://github.com/RISC-NYUAD/calm_computing/blob/master/2/main_http/main_http.pde), change the IP address in line 13 to the IP address found in step 3 above. Upload the code to the board
 
      
 
