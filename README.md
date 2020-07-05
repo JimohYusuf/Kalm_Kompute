@@ -66,7 +66,7 @@ Let’s begin the installation
 1. Go to the [actions console](https://console.actions.google.com/) and choose create new project
 2. After naming the project and choosing ok, look at the bottom of the screen and choose _Are you looking for device registration? Click here._ 
 
-This is the link in case it disappears in the future. (https://console.actions.google.com/project/**device_id**/deviceregistration/). Replace **device_id** in the URL with your device’s id. Find the device id by checking step **#**
+This is the link in case it disappears in the future. (https://console.actions.google.com/project/**device_id**/deviceregistration/). Replace **device_id** in the URL with your device’s id. Find the device id by checking step **10**
 
 
 
