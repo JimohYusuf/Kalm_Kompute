@@ -1,0 +1,45 @@
+//flask and libs
+pip3 install flask
+pip3 install wheel
+sudo apt-get install build-essential libssl-dev libffi-dev python3-dev
+sudo apt-get install libmysqlclient-dev
+pip3 install flask-mysqldb
+
+//for yaml
+pip install pyyaml
+
+//for mysq.connector
+pip3 install mysql-connector-python-rf 
+sudo apt-get install python-mysqldb
+wget http://dev.mysql.com/get/Downloads/Connector-Python/mysql-connector-python-2.1.6.tar.gz
+tar -xf mysql-connector-python-2.1.6.tar.gz
+cd mysql-connector-python-2.1.6/
+sudo python3 setup.py install
+
+//PYGAL FOR PLOTTING
+pip3 install pygal
+
+
+//DB
+create table calm_computing.mlibelium_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), temperature varchar(30), pressure varchar(30),
+humidity varchar(30), lux varchar(30), lumen varchar(30), primary key(id));
+
+create table calm_computing.mlibelium_2(id int AUTO_INCREMENT, date varchar(30), time varchar(30), CO varchar(30), temperature varchar(30), pressure varchar(30), humidity varchar(30), primary key(id));
+
+create table calm_computing.mphone_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), device_state varchar(30), call_state varchar(30), primary key(id));
+
+insert into mphone_1 (date, time, device_state, call_state) values ("21/06/2020","03:08:33", "DEVICE-IDLE", "CALL-IDLE");
+
+
+//mysql install 
+sudo apt install mysql-server
+sudo mysql_secure_installation
+
+
+
+
+
+
+
+
+

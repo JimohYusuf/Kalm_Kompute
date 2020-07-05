@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div>
+    <form method="POST"> 
+        <div>
+            <label for="temp_max">Temperature max:</label>
+            <input type="number" step="any" id="temp_max" name="temp_max" value=40><br> 
+            <label> Action</label><br> 
+            <input type="radio" name="temperature" id="option1" value="option1"> Switch on Red Light</input><br>
+            <input type="radio" name="temperature" id="option2" value="option2" checked="checked"> Switch Everything Off</input><br>
+            <input type="radio" name="temperature" id="option3" value="option3"> Switch On All the Lights </input><br> 
+        </div>
+
+        <div style="margin-top: 50px">
+            <label for="pres_max">Pressure max:</label>
+            <input type="number" step="any" id="pres_max" name="pres_max" value=999999><br>
+            <label> Action</label><br> 
+            <input type="radio" name="pressure" id="option1" value="option1" checked="checked"> Switch on Red Light</input><br>
+            <input type="radio" name="pressure" id="option2" value="option2"> Switch Everything Off</input><br>
+            <input type="radio" name="pressure" id="option3" value="option3"> Switch On All the Lights </input><br>
+            
+        </div>
+
+        <div style="margin-top: 50px">
+            <label for="hum_max">Humidity max:</label>
+            <input type="number" step="any" id="hum_max" name="hum_max" value=100><br> 
+            <label> Action</label><br> 
+            <input type="radio" name="humidity" id="option1" value="option1" checked="checked"> Switch on Red Light</input><br>
+            <input type="radio" name="humidity" id="option2" value="option2"> Switch Everything Off</input><br>
+            <input type="radio" name="humidity" id="option3" value="option3"> Switch On All the Lights </input><br>
+        </div>
+        
+        <div style="margin-top: 50px">
+            <label for="lux_min">Illuminance min:</label>
+            <input type="number" step="any" id="lux_min" name="lux_min" value=0.1><br>
+            <label> Action</label><br> 
+            <input type="radio" name="lux" id="option1" value="option1"> Switch on Red Light</input><br>
+            <input type="radio" name="lux" id="option2" value="option2"> Switch Everything Off</input><br>
+            <input type="radio" name="lux" id="option3" value="option3" checked="checked"> Switch On All the Lights </input><br>
+        </div>
+
+        <div style="margin-top: 50px">
+            <label for="lum_min">Luminosity min:</label>
+            <input type="number" step="any" id="lum_min" name="lum_min" value=0.1><br> 
+            <label> Action</label><br>
+            <input type="radio" name="luminosity" id="option1" value="option1"> Switch on Red Light</input><br>
+            <input type="radio" name="luminosity" id="option2" value="option2"> Switch Everything Off</input><br>
+            <input type="radio" name="luminosity" id="option3" value="option3" checked="checked"> Switch On All the Lights </input><br>
+        </div>
+
+        <div style="margin-top: 50px">
+            <label for="co_max">CO max:</label>
+            <input type="number" step="any" id="co_max" name="co_max" value=20><br>  
+            <label> Action</label><br>
+            <input type="radio" name="co" id="option1" value="option1" checked="checked"> Switch on Red Light</input><br>
+            <input type="radio" name="co" id="option2" value="option2"> Switch Everything Off</input><br>
+            <input type="radio" name="co" id="option3" value="option3"> Switch On All the Lights </input><br>
+        </div> 
+
+        <div style="margin-top: 20px"> 
+            <input type="submit" value="Submit"> 
+        </div>        
+      </form>
+</div>
+
+</body>
+</html>
