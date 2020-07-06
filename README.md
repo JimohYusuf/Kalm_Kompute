@@ -145,7 +145,8 @@ python --version
     16. Save both files
 29. Install the MySQL database. Follow only <strong>step 1</strong> and <strong>step 2 </strong>of [this](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-18-04) guide to install the MySQL database. Make sure to remember the [root user](https://en.wikipedia.org/wiki/Superuser) password that you set when installing the MySQL database. 
 
-<strong>SETTING UP THE DATABASE</strong>
+
+### SETTING UP THE DATABASE
 
 Type in the following into a command line (press ctrl+alt+t to open a command line):
 
@@ -173,7 +174,7 @@ Now we move on to creating the appropriate tables and setting up the required co
 
 And we are done with the database! Type `exit `to quit the MySQL terminal. 
 
-**INSTALLING CONNECTING LIBRARIES AND DEPENDENCIES**
+### INSTALLING CONNECTING LIBRARIES AND DEPENDENCIES
 
 In the terminal, type:
 
@@ -211,7 +212,7 @@ Now in the virtual environment run each of  the commands sequentially:
 
 Okay, now we are finally done with the server-side, technically. 
 
-**SETTING UP AND OPERATING THE MOBILE APPLICATION**
+### SETTING UP AND OPERATING THE MOBILE APPLICATION
 
 
 
@@ -247,7 +248,7 @@ Okay, now we are finally done with the server-side, technically.
     Note that you have to replace **<code>server_ip_address</code></strong> in the URL above with the IP address that we found in the last step of setting up the server.
 
 
-**UNDERSTANDING THE PHONE’S DATA**
+### UNDERSTANDING THE PHONE’S DATA
 
 
 
