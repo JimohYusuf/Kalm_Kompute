@@ -1,7 +1,7 @@
 # calm_computing  
 
 
-**SETUP GUIDE FOR SERVER AND MOBILE APPLICATION**
+## SETUP GUIDE FOR SERVER AND MOBILE APPLICATION 
 
 Kindly follow the steps below carefully to set up your application. 
 
