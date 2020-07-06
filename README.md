@@ -1,4 +1,4 @@
-# calm_computing  
+# Calm_Computing  
 
 
 ## SETUP GUIDE FOR SERVER AND MOBILE APPLICATION 
