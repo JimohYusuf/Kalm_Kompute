@@ -168,6 +168,8 @@ Now we move on to creating the appropriate tables and setting up the required co
 
      CREATE TABLE calm_computing.mlibelium_2(id int AUTO_INCREMENT, date varchar(30), time varchar(30), CO varchar(30), temperature varchar(30), pressure varchar(30), humidity varchar(30), primary key(id));
 
+     CREATE TABLE calm_computing.mwatch_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), heart_rate int, primary key(id));
+
      CREATE TABLE calm_computing.mphone_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), device_state varchar(30), call_state varchar(30), primary key(id));
 ```
 
@@ -245,7 +247,39 @@ Okay, now we are finally done with the server-side, technically.
 *   	<code>[http://server_ip_address/home](http://server_ip_address/home)</code> 
 
 
-    Note that you have to replace **<code>server_ip_address</code></strong> in the URL above with the IP address that we found in the last step of setting up the server.
+    Note that you have to replace <strong><code>server_ip_address</code></strong> in the URL above with the IP address that we found in the last step of setting up the server.
+
+
+### SETTING UP AND OPERATING THE SMARTWATCH APPLICATION
+
+
+* Install the watch app using the TPK file in [this](https://google.com) folder.
+
+* Launch the application after installation and you will be required to grant the application permissions to access your device’s sensors (Heart rate sensor in our case). Click the “check mark” sign to grant permission. Note that the app will not work without the permission being granted. 
+
+* Enter the IP address of the server into the text box that hints “Enter IP address here.”
+
+* Click the <strong>Connect</strong> button.
+
+* The application will run if your watch has an active internet connection (Wi-Fi, ethernet, or mobile(LTE)) and the server is running.
+
+* If you get an error message that says <strong> Cannot Connect</strong>, then that indicates that there is a problem with the server or the watch’s internet connection.
+
+* You might also get an error message that reads <strong>No Internet Connection</strong> which basically indicates that you do not have an active internet connection.
+
+* You might also want to ensure that you entered in the correct IP address in the address box if you get a <strong> Cannot Connect</strong> error message.
+
+* If on the other hand, you have an active internet connection, you entered the correct IP address for the server and the server is up and running, then you would be taken to the next screen.
+
+* Click on the <strong> Start</strong> button to start recording your heart rate data and having it automatically sent to the server.
+
+* On clicking the <strong>Start</strong> button, the application would print a toast message: <strong>Heart Rate Monitoring Started</strong>. If you get an error message, follow the instructions given by the error message.
+
+* You can leave the app and the app will keep running in the background.
+
+* You can also always go to the app and click the <strong>Stop</strong> button to stop the app from recording heart rate data.
+
+* On stopping the app, the application would print a toast message:  <strong>Heart Rate Monitoring Stopped</strong>. 
 
 
 ### UNDERSTANDING THE PHONE’S DATA

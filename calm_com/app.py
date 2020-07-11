@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, make_response, Response
 from flask_assistant import Assistant, ask, tell
 from flask_mysqldb import MySQL
 import mysql.connector 
+import MySQLdb   
 import sched, time
 import datetime 
 import pygal  
@@ -228,7 +229,7 @@ def home():
 @server.route('/phone_1', methods=['POST', 'GET']) 
 def phone_1(): 
     global allsensors
-    if request.method == 'POST': 
+    if request.method == 'POST':  
         
         datte           = str(datetime.date.today().strftime("%d/%m/%Y"))
         time            = str(datetime.datetime.now().strftime("%H:%M:%S")) 
@@ -256,10 +257,64 @@ def phone_1():
             return FAIL
         except mysql.connector.Error as err:
             print(err)
-            return FAIL 
+            return FAIL
+        except MySQLdb.Error as err: 
+            print(err) 
+            return FAIL  
         
         return SUCCESS
     return render_template('phone_1.html')  
+
+
+########################################### WATCH DATA ROUTE #############################################################
+@server.route('/watch_1', methods=['POST', 'GET']) 
+def watch():
+    global allsensors
+    if request.method == 'POST': 
+        data            = request.get_json(force=True)
+        try:
+            HRvalue     = data["heartRateVal"] 
+        except:
+            print("could not find key 'heartRateVal' in POST data") 
+            return 
+
+        datte               = str(datetime.date.today().strftime("%d/%m/%Y"))
+        time                = str(datetime.datetime.now().strftime("%H:%M:%S"))   
+
+        allsensors["heart_rate"]  = int(HRvalue)   
+
+        cur = dbConn.connection.cursor() 
+
+        try:
+            cur.execute("INSERT INTO mwatch_1 (date, time, heart_rate) VALUES(%s, %s, %s)", (datte, time , HRvalue)) 
+            dbConn.connection.commit() 
+        except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
+            print("DataError or IntegrityError")
+            print(err)
+            return FAIL
+        except mysql.connector.ProgrammingError as err:
+            print("Programming Error")
+            print(err) 
+            return FAIL
+        except mysql.connector.Error as err:
+            print(err)
+            return FAIL
+        except MySQLdb.Error as err: 
+            print(err) 
+            return FAIL
+        return SUCCESS  
+    else:
+        #Handle get request
+        heartRate = getAllData(cur, "mwatch_1")  
+
+        graph_hr = pygal.Line() 
+       
+        graph_hr.add('Heart Rate', heartRate) 
+        graph_hr_data = graph_hr.render_data_uri() 
+
+        graph_data = graph_hr_data
+
+    return render_template('watch_1.html',  graph_data=graph_data) 
 
 ########################################### LIBELIUM SENSOR 1 ROUTE ############################################################
 
@@ -299,6 +354,9 @@ def libelium_1():
             return FAIL
         except mysql.connector.Error as err:
             print(err)
+            return FAIL
+        except MySQLdb.Error as err: 
+            print(err) 
             return FAIL 
         
         return SUCCESS
@@ -394,7 +452,10 @@ def libelium_2():
             return FAIL
         except mysql.connector.Error as err:
             print(err)
-            return FAIL 
+            return FAIL
+        except MySQLdb.Error as err: 
+            print(err) 
+            return FAIL  
         
         return SUCCESS
     else:
@@ -478,6 +539,31 @@ def latestdata_l2():
   
     return json_data     
 
+######################################## REAL TIME DATA WATCH 1 ###################################################
+@server.route('/watch_1_rt', methods=['POST', 'GET']) 
+def watch_1_rt():
+    return render_template('watch_1_rt.html') 
+
+@server.route('/w1_data', methods=['POST', 'GET']) 
+def data_w1():
+    cur = dbConn.connection.cursor() 
+    heartRate = getRealTimeData(cur, "mwatch_1")
+
+    data = [heartRate]  
+    json_data = json.dumps(data)
+  
+    return json_data 
+
+@server.route('/w1_ltdata', methods=['POST', 'GET']) 
+def latestdata_w1(): 
+    cur = dbConn.connection.cursor()
+    heartRate = getLatestData(cur, "mwatch_1")   
+
+    data = [heartRate] 
+    json_data = json.dumps(data) 
+  
+    return json_data     
+
 ############################################ GET LATEST PHONE STATE ######################################################
 @server.route('/ph1_ltdata', methods=['POST', 'GET']) 
 def latestdata_ph1(): 
@@ -514,6 +600,10 @@ def initialization():
 
         allsensors["max_co"]               = init_values["co_max"]
         allsensors["action_co"]            = init_values["co"]  
+
+        allsensors["max_hr"]               = init_values["hr_max"]
+        allsensors["action_hr"]            = init_values["hr"]   
+
 
         return "EXRTREME VALUES SET SUCCESSFULLY" 
 
@@ -578,7 +668,7 @@ def getAllData(cursor_object, table_name):
 
     if table_name == "mlibelium_1":
         try:
-            cursor_object.execute("SELECT * FROM mlibelium_1 ORDER BY id DESC LIMIT 5000") 
+            cursor_object.execute("SELECT * FROM mlibelium_1 ORDER BY id DESC LIMIT 3000") 
             all_data  = cursor_object.fetchall() 
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
             print("DataError or IntegrityError")
@@ -590,6 +680,9 @@ def getAllData(cursor_object, table_name):
             return FAIL
         except mysql.connector.Error as err:
             print(err)
+            return FAIL
+        except MySQLdb.Error as err: 
+            print(err) 
             return FAIL  
 
 
@@ -609,7 +702,7 @@ def getAllData(cursor_object, table_name):
 
     elif table_name == "mlibelium_2":
         try:
-            cursor_object.execute("SELECT * FROM mlibelium_2 ORDER BY id DESC LIMIT 5000") 
+            cursor_object.execute("SELECT * FROM mlibelium_2 ORDER BY id DESC LIMIT 3000") 
             all_data  = cursor_object.fetchall() 
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
             print("DataError or IntegrityError")
@@ -621,6 +714,9 @@ def getAllData(cursor_object, table_name):
             return FAIL
         except mysql.connector.Error as err:
             print(err)
+            return FAIL
+        except MySQLdb.Error as err: 
+            print(err) 
             return FAIL  
 
 
@@ -635,6 +731,33 @@ def getAllData(cursor_object, table_name):
             pres.append(float(row[5]))
             hum.append(float(row[6]))  
         return co, temp, pres, hum
+
+    elif table_name == "mwatch_1":
+        try:
+            cursor_object.execute("SELECT * FROM mwatch_1 ORDER BY id DESC LIMIT 3000") 
+            all_data  = cursor_object.fetchall() 
+        except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
+            print("DataError or IntegrityError")
+            print(err)
+            return FAIL
+        except mysql.connector.ProgrammingError as err:
+            print("Programming Error")
+            print(err) 
+            return FAIL
+        except mysql.connector.Error as err:
+            print(err)
+            return FAIL
+        except MySQLdb.Error as err: 
+            print(err) 
+            return FAIL  
+
+
+        hr      = []
+        
+        for row in reversed(all_data):
+            hr.append(float(row[3]))   
+        return hr 
+
 
 
 ############################################ GET LAST X NUMBER OF DATA POINTS ############################################
@@ -653,6 +776,9 @@ def getRealTimeData(cursor_object, table_name):
             return FAIL
         except mysql.connector.Error as err:
             print(err)
+            return FAIL
+        except MySQLdb.Error as err: 
+            print(err) 
             return FAIL  
  
 
@@ -684,6 +810,9 @@ def getRealTimeData(cursor_object, table_name):
             return FAIL
         except mysql.connector.Error as err:
             print(err)
+            return FAIL
+        except MySQLdb.Error as err: 
+            print(err) 
             return FAIL  
 
 
@@ -698,6 +827,33 @@ def getRealTimeData(cursor_object, table_name):
             pres.append([row[2], float(row[5])])
             hum.append([row[2], float(row[6])]) 
         return co, temp, pres, hum
+    
+    elif table_name == "mwatch_1":
+        try:
+            cursor_object.execute("SELECT * FROM mwatch_1 ORDER BY id DESC LIMIT 300") 
+            all_data  = cursor_object.fetchall() 
+        except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
+            print("DataError or IntegrityError")
+            print(err)
+            return FAIL
+        except mysql.connector.ProgrammingError as err:
+            print("Programming Error")
+            print(err) 
+            return FAIL
+        except mysql.connector.Error as err:
+            print(err)
+            return FAIL
+        except MySQLdb.Error as err: 
+            print(err) 
+            return FAIL  
+
+
+        hr      = []
+        
+        for row in reversed(all_data):
+            hr.append([row[2], float(row[3])])   
+        return hr 
+
 
 
 ########################################## GET THE MOST RECENT DATAPOINT #######################################################
@@ -717,7 +873,10 @@ def getLatestData(cursor_object, table_name):
             return FAIL
         except mysql.connector.Error as err:
             print(err)
-            return FAIL  
+            return FAIL
+        except MySQLdb.Error as err: 
+            print(err) 
+            return FAIL   
 
         temp = []
         pres = []
@@ -747,6 +906,9 @@ def getLatestData(cursor_object, table_name):
             return FAIL
         except mysql.connector.Error as err:
             print(err)
+            return FAIL
+        except MySQLdb.Error as err: 
+            print(err) 
             return FAIL  
 
 
@@ -776,6 +938,9 @@ def getLatestData(cursor_object, table_name):
             return FAIL
         except mysql.connector.Error as err:
             print(err)
+            return FAIL
+        except MySQLdb.Error as err: 
+            print(err) 
             return FAIL  
 
 
@@ -788,7 +953,34 @@ def getLatestData(cursor_object, table_name):
             device_state.append(["device_state", row[3]])
             call_state.append(["call_state",row[4]])  
 
-        return time, device_state, call_state 
+        return time, device_state, call_state
+
+    elif table_name == "mwatch_1":
+        try:
+            cursor_object.execute("SELECT * FROM mwatch_1 ORDER BY id DESC LIMIT 1")  
+            all_data  = cursor_object.fetchall() 
+        except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
+            print("DataError or IntegrityError")
+            print(err)
+            return FAIL
+        except mysql.connector.ProgrammingError as err:
+            print("Programming Error")
+            print(err) 
+            return FAIL
+        except mysql.connector.Error as err:
+            print(err)
+            return FAIL
+        except MySQLdb.Error as err: 
+            print(err) 
+            return FAIL  
+
+
+        hr      = []
+        
+        for row in reversed(all_data):
+            hr.append([row[2], float(row[3])])    
+        return hr 
+ 
 
 
 

@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script type="text/javascript">
+window.onload = function() {
+	var heartRate_dataPoints = [];
+	var heartRate_chart;
+	var heartRate_avg; 
+	var hearRate_max;
+	var heartRate_min; 
+
+	CanvasJS.addColorSet("red",["#8B0000"]); 
+	CanvasJS.addColorSet("green",["#006400"]); 
+	CanvasJS.addColorSet("indigo",["#4B0082"]); 
+	CanvasJS.addColorSet("gold",["#DAA520"]);
+
+
+	$.getJSON("http://192.168.1.159/w1_data", function(data) {  
+		$.each(data[0], function(key, value){
+			heartRate_dataPoints.push({label: value[0], y: parseFloat(value[1])});
+		}); 
+
+		heartRate_chart = new CanvasJS.Chart("heartRateChartContainer",{
+
+			colorSet: "red",
+
+			title:{
+				text: "Heart Rate Data"
+			},
+			axisX:{
+				title: "Time",
+				gridThickness: 2
+			},
+			axisY: {
+				title: "Heart Rate", 
+				includeZero: false 
+			},
+			data: [{
+				type: "spline",
+				dataPoints : heartRate_dataPoints,
+			}]
+		});
+
+		heartRate_chart.render(); 
+	
+		updateChart();
+	});
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	function get_average(datarray){
+			total = 0;
+			for(var i = 0; i < datarray.length; i++){
+				total += datarray[i].y;
+			}
+			average = (total/datarray.length);
+			return average; 
+		}
+	
+	function get_min(datarray){
+		datapoints = [];
+		
+		for (var i = 0; i < datarray.length; i++){
+			datapoints.push(datarray[i].y);
+		}
+
+		minimum = Math.min(...datapoints);
+		return minimum; 
+	}
+
+	function get_max(datarray){
+		datapoints = [];
+		
+		for (var i = 0; i < datarray.length; i++){
+			datapoints.push(datarray[i].y);
+		}
+
+		maximum = Math.max(...datapoints);
+		return maximum; 
+	}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	function updateChart() {
+	$.getJSON("http://192.168.1.159/w1_ltdata", function(data) {
+		$.each(data[0], function(key, value) { 
+			heartRate_dataPoints.push({
+			label: value[0],
+			y: parseFloat(value[1])
+			});
+
+			document.getElementById("max_heartRate").innerHTML = get_max(heartRate_dataPoints).toFixed(2); 
+			document.getElementById("min_heartRate").innerHTML = get_min(heartRate_dataPoints).toFixed(2); 
+			document.getElementById("avg_heartRate").innerHTML = get_average(heartRate_dataPoints).toFixed(2);   
+			
+			
+		});
+
+		heartRate_chart.render();
+
+		setTimeout(function(){updateChart()}, 2000); 
+	});
+	}
+
+
+}
+</script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<style>
+	table, th, td {
+		border: 1px solid black; 
+	}
+	th, td {
+	padding: 15px;
+	}
+</style>
+
+</head> 
+	<body>
+		<div>
+			<h2>HEART RATE SENSOR DATA</h2> 
+			
+			<table style="width:100%">
+				<caption><h3>Data Statistics</h3></caption> 
+				<tr>
+					<th> </th>
+					<th>Heart Rate</th> 
+				</tr>
+				<tr>
+					<th>Maximum</th>
+					<td id="max_heartRate"></td> 
+				</tr>
+				<tr>
+					<th>Minimum</th>
+					<td id="min_heartRate"></td>
+				</tr>
+				<tr>
+					<th>Average</th> 
+					<td id="avg_heartRate"></td>
+				</tr>
+				
+			</table>
+				
+		</div>
+		<div id="heartRateChartContainer" style="height: 300px; width: 100%; margin-top: 50px"></div> 
+	</body>
+</html>
