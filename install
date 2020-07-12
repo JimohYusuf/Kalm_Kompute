@@ -100,14 +100,14 @@ sed "s/replace_the_ip_address/$ip_address/g" ./calm_com/templates/bak_libelium_2
 sed "s/replace_the_ip_address/$ip_address/g" ./calm_com/templates/bak_phone_1.html > ./calm_com/templates/phone_1.html 2> "/dev/null"
 sed "s/replace_the_ip_address/$ip_address/g" ./calm_com/templates/bak_watch_1_rt.html > ./calm_com/templates/watch_1_rt.html 2> "/dev/null"
 
-sed "s/replace_the_ip_address/$ip_address/g" ./1/main_http/bak_main_http.pde > ./1/main_http/main_http.pde 2> "/dev/null"
-sed "s/replace_the_ip_address/$ip_address/g" ./2/main_http/bak_main_http.pde > ./2/main_http/main_http.pde 2> "/dev/null"
+sed "s/replace_the_ip_address/$ip_address/g" ./1/main_http/bak_main_http/bak_main_http.pde > ./1/main_http/main_http.pde 2> "/dev/null"
+sed "s/replace_the_ip_address/$ip_address/g" ./2/main_http/bak_main_http/bak_main_http.pde > ./2/main_http/main_http.pde 2> "/dev/null"
 
-sed -e "s/replace_the_ssid_name/$wifi_name/g" -e "s/replace_the_key_name/$wifi_key/g" ./1/WIFI_PRO_01_configure_essid/bak_WIFI_PRO_01_configure_essid.pde > ./1/WIFI_PRO_01_configure_essid/WIFI_PRO_01_configure_essid.pde 2> "/dev/null"
-sed -e "s/replace_the_ssid_name/$wifi_name/g" -e "s/replace_the_key_name/$wifi_key/g" ./2/WIFI_PRO_01_configure_essid/bak_WIFI_PRO_01_configure_essid.pde > ./2/WIFI_PRO_01_configure_essid/WIFI_PRO_01_configure_essid.pde 2> "/dev/null"
+sed -e "s/replace_the_ssid_name/$wifi_name/g" -e "s/replace_the_key_name/$wifi_key/g" ./1/WIFI_PRO_01_configure_essid/bak_WIFI_PRO_01_configure_essid/bak_WIFI_PRO_01_configure_essid.pde > ./1/WIFI_PRO_01_configure_essid/WIFI_PRO_01_configure_essid.pde 2> "/dev/null"
+sed -e "s/replace_the_ssid_name/$wifi_name/g" -e "s/replace_the_key_name/$wifi_key/g" ./2/WIFI_PRO_01_configure_essid/bak_WIFI_PRO_01_configure_essid/bak_WIFI_PRO_01_configure_essid.pde > ./2/WIFI_PRO_01_configure_essid/WIFI_PRO_01_configure_essid.pde 2> "/dev/null"
 
-sed "s/replace_the_ip_address/$ip_address/g" ./1/WIFI_PRO_02_join/bak_WIFI_PRO_02_join.pde > ./1/WIFI_PRO_02_join/WIFI_PRO_02_join.pde 2> "/dev/null"
-sed "s/replace_the_ip_address/$ip_address/g" ./2/WIFI_PRO_02_join/bak_WIFI_PRO_02_join.pde > ./2/WIFI_PRO_02_join/WIFI_PRO_02_join.pde 2> "/dev/null"
+sed "s/replace_the_ip_address/$ip_address/g" ./1/WIFI_PRO_02_join/bak_WIFI_PRO_02_join/bak_WIFI_PRO_02_join.pde > ./1/WIFI_PRO_02_join/WIFI_PRO_02_join.pde 2> "/dev/null"
+sed "s/replace_the_ip_address/$ip_address/g" ./2/WIFI_PRO_02_join/bak_WIFI_PRO_02_join/bak_WIFI_PRO_02_join.pde > ./2/WIFI_PRO_02_join/WIFI_PRO_02_join.pde 2> "/dev/null"
 
-sed "s/replace_the_ip_address/$ip_address/g" ./1/WIFI_PRO_05_ping/bak_WIFI_PRO_05_ping.pde > ./1/WIFI_PRO_05_ping/WIFI_PRO_05_ping.pde 2> "/dev/null"
-sed "s/replace_the_ip_address/$ip_address/g" ./2/WIFI_PRO_05_ping/bak_WIFI_PRO_05_ping.pde > ./2/WIFI_PRO_05_ping/WIFI_PRO_05_ping.pde 2> "/dev/null"
+sed "s/replace_the_ip_address/$ip_address/g" ./1/WIFI_PRO_05_ping/bak_WIFI_PRO_05_ping/bak_WIFI_PRO_05_ping.pde > ./1/WIFI_PRO_05_ping/WIFI_PRO_05_ping.pde 2> "/dev/null"
+sed "s/replace_the_ip_address/$ip_address/g" ./2/WIFI_PRO_05_ping/bak_WIFI_PRO_05_ping/bak_WIFI_PRO_05_ping.pde > ./2/WIFI_PRO_05_ping/WIFI_PRO_05_ping.pde 2> "/dev/null"
