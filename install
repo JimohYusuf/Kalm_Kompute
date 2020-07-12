@@ -13,6 +13,10 @@ project_id=$(zenity --entry --title="DialogFLow Project ID" --text="Enter the Di
 device_id=$(zenity --entry --title="Device model" --text="Enter the Device Model ID.\n\n Find it in Project settings of the associated project in the Actions console." 2> "/dev/null")
 model_id=$(zenity --entry --title="Device model" --text="Enter the Device Model ID.\n\n Find it in Develop tab, Device registration on the left menu of the associated project in the Actions console." 2> "/dev/null")
 
+wget http://downloads.libelium.com/waspmote-pro-ide-v06.19-linux64.zip
+unzip waspmote-pro-ide-v06.19-linux64.zip -d wasp1
+sudo ./wasp1/install.sh
+
 update-alternatives --remove python /usr/bin/python2
 sudo update-alternatives --remove python /usr/bin/python2
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
