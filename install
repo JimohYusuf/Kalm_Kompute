@@ -111,3 +111,8 @@ sed "s/replace_the_ip_address/$ip_address/g" ./2/WIFI_PRO_02_join/bak_WIFI_PRO_0
 
 sed "s/replace_the_ip_address/$ip_address/g" ./1/WIFI_PRO_05_ping/bak_WIFI_PRO_05_ping/bak_WIFI_PRO_05_ping.pde > ./1/WIFI_PRO_05_ping/WIFI_PRO_05_ping.pde 2> "/dev/null"
 sed "s/replace_the_ip_address/$ip_address/g" ./2/WIFI_PRO_05_ping/bak_WIFI_PRO_05_ping/bak_WIFI_PRO_05_ping.pde > ./2/WIFI_PRO_05_ping/WIFI_PRO_05_ping.pde 2> "/dev/null"
+
+zenity --info --title="Ngrok" --text="Use this link for the Ngrok part of the setup\n\n ./ngrok http http://$ip_address:80" 2> "/dev/null"
+
+zenity --info --title="Congratulations" --text="Use this link to access the home page\n\n http://$ip_address/home" 2> "/dev/null"
+
