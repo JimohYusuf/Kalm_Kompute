@@ -10,8 +10,8 @@ ip_address=$(zenity  --list  --text "Choose your IP address" --radiolist  --colu
 zenity --info --title="IP address" --text="Server IP address in use.\n\n "$ip_address"" 2> "/dev/null"
 
 project_id=$(zenity --entry --title="DialogFLow Project ID" --text="Enter the DialogFlow Project ID.\n\n Find it in Project settings of the associated project in the Actions console or in DialogFlow." 2> "/dev/null")
-device_id=$(zenity --entry --title="Device model" --text="Enter the Device Model ID.\n\n Find it in Project settings of the associated project in the Actions console." 2> "/dev/null")
-model_id=$(zenity --entry --title="Device model" --text="Enter the Device Model ID.\n\n Find it in Develop tab, Device registration on the left menu of the associated project in the Actions console." 2> "/dev/null")
+device_id=$(zenity --entry --title="Device ID" --text="Enter the Device ID.\n\n Find it in Project settings of the associated project in the Actions console." 2> "/dev/null")
+model_id=$(zenity --entry --title="Model ID" --text="Enter the Model ID.\n\n Find it in Develop tab, Device registration on the left menu of the associated project in the Actions console." 2> "/dev/null")
 
 wget http://downloads.libelium.com/waspmote-pro-ide-v06.19-linux64.zip
 unzip waspmote-pro-ide-v06.19-linux64.zip -d wasp1
