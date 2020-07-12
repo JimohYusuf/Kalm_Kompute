@@ -15,13 +15,13 @@ model_id=$(zenity --entry --title="Device model" --text="Enter the Device Model 
 
 wget http://downloads.libelium.com/waspmote-pro-ide-v06.19-linux64.zip
 unzip waspmote-pro-ide-v06.19-linux64.zip -d wasp1
-sudo ./wasp1/install.sh -y
+sudo ./wasp1/install.sh
 
 update-alternatives --remove python /usr/bin/python2
 sudo update-alternatives --remove python /usr/bin/python2
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 
-sudo apt install mysql-server
+sudo apt install mysql-server -y
 
 mysql -uroot -p1212 -e "CREATE DATABASE calm_computing3;"
 
