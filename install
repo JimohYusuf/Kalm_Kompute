@@ -72,6 +72,9 @@ cd mysql-connector-python-2.1.6/
 sudo python3 setup.py install
 cd ..
 
+pip3 install PyMySQL
+pip install apscheduler
+
 sudo touch /etc/authbind/byport/80
 sudo chmod 777 /etc/authbind/byport/80
 
