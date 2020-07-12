@@ -116,3 +116,6 @@ zenity --info --title="Ngrok setup" --text="Use this link for the Ngrok part of 
 
 zenity --info --title="Congratulations" --text="Use this link to access the home page\n\n http://$ip_address/home" 2> "/dev/null"
 
+source ~/env/bin/activate
+cd ./calm_com
+authbind --deep python app.py
