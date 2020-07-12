@@ -15,7 +15,7 @@ model_id=$(zenity --entry --title="Device model" --text="Enter the Device Model 
 
 wget http://downloads.libelium.com/waspmote-pro-ide-v06.19-linux64.zip
 unzip waspmote-pro-ide-v06.19-linux64.zip -d wasp1
-sudo ./wasp1/install.sh
+sudo ./wasp1/install.sh -y
 
 update-alternatives --remove python /usr/bin/python2
 sudo update-alternatives --remove python /usr/bin/python2
