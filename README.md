@@ -28,17 +28,17 @@ Kindly follow the steps below carefully to set up your application.
 
 This application utilizes client-server architecture. What that simply means is that the application requires a client (the mobile application or the sensors' firmware) and a [server](https://en.wikipedia.org/wiki/Server_(computing)) in order to work correctly. Therefore it is required that we set up the server properly in order to be able to receive and visualize data from our mobile application and the libelium sensors. If this is your first time setting up a server, you are in good hands, this guide will walk you through the process.
 
-**FIRST INSTALL THE OPERATING SYSTEM (UBUNTU 18.04)**
+**FIRST INSTALL THE OPERATING SYSTEM (UBUNTU 16.04)**
 
-The server will be set up on a Linux distribution called Ubuntu. In this guide, we will be installing Ubuntu 18.04. However, the same installation process applies to Ubuntu 16.04 and Ubuntu 20.04 and the server set up is the same on all three versions of the Ubuntu operating system.
+The server will be set up on a Linux distribution called Ubuntu. In this guide, we will be installing Ubuntu 16.04. However, the same installation process applies to Ubuntu 18.04 and Ubuntu 20.04 and the server set up is the same on all three versions of the Ubuntu operating system.
 
-If you already have a Ubuntu operating system running then you should skip this step. If you do not, then follow the guides below to install Ubuntu 18.04 LTS on your machine:
+If you already have a Ubuntu operating system running then you should skip this step. If you do not, then follow the guides below to install Ubuntu 16.04 LTS on your machine:
 
 **For a Windows machine: **
 
 Watch [this](https://www.youtube.com/watch?v=u5QyjHIYwTQ) video to learn how to install Ubuntu 18.04 LTS alongside your Windows OS (This is called [dual booting](https://en.wikipedia.org/wiki/Multi-booting)). 
 
-Also see [this](https://www.forbes.com/sites/jasonevangelho/2018/08/29/beginners-guide-how-to-install-ubuntu-linux/#447509bb951c) link to learn how to install Ubuntu 18.04 LTS alongside Windows.
+Also see [this](https://www.forbes.com/sites/jasonevangelho/2018/08/29/beginners-guide-how-to-install-ubuntu-linux/#447509bb951c) link to learn how to install Ubuntu 16.04 LTS alongside Windows.
 
 **Support links**
 
