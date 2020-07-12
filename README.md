@@ -156,11 +156,11 @@ Enter the root password, that you set when installing the MySQL database, when p
 
 Now let’s create a database where we will store all the tables required for our incoming data. Type/copy and run the below command in the MySQL terminal which opened after entering your password above (make sure to also type/copy the semicolon)
 
-	 `CREATE TABLE calm_computing;`
+	 `CREATE DATABASE calm_computing;`
 
 Now we move on to creating the appropriate tables and setting up the required columns in those tables. Run the following in the MySQL terminal:
 
-*  <code><strong> USE TABLE calm_computing; </strong></code> 
+*  <code><strong> USE DATABASE calm_computing; </strong></code> 
 
 
 ```
@@ -168,7 +168,7 @@ Now we move on to creating the appropriate tables and setting up the required co
 
      CREATE TABLE calm_computing.mlibelium_2(id int AUTO_INCREMENT, date varchar(30), time varchar(30), CO varchar(30), temperature varchar(30), pressure varchar(30), humidity varchar(30), primary key(id));
 
-     CREATE TABLE calm_computing.mwatch_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), heart_rate int, primary key(id));
+     CREATE TABLE calm_computing.mwatch_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), heart_rate varchar(30), primary key(id));
 
      CREATE TABLE calm_computing.mphone_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), device_state varchar(30), call_state varchar(30), primary key(id));
 ```
