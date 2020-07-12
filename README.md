@@ -160,7 +160,7 @@ Now let’s create a database where we will store all the tables required for ou
 
 Now we move on to creating the appropriate tables and setting up the required columns in those tables. Run the following in the MySQL terminal:
 
-*  <code><strong> USE DATABASE calm_computing; </strong></code> 
+*  <code><strong> USE calm_computing; </strong></code> 
 
 
 ```
