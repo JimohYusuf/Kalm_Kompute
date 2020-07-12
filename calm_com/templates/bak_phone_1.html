@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+	table, th, td {
+		border: 1px solid black; 
+	}
+	th, td {
+	padding: 15px;
+	}
+</style>
+
+<script type="text/javascript">
+    window.onload = function() {
+	$.getJSON("http://replace_the_ip_address/ph1_ltdata", function(data) {  
+       
+		$.each(data[0], function(key, value){
+            time = value[1];  
+            document.getElementById("time").innerHTML = time;
+        });
+        $.each(data[1], function(key, value){
+            device_state = value[1];
+            document.getElementById("dev_state").innerHTML = device_state;
+        });
+        $.each(data[2], function(key, value){
+            call_state = value[1]; 
+            document.getElementById("call_state").innerHTML = call_state;
+        });
+
+        updateData(); 
+    });
+
+    function updateData(){
+        $.getJSON("http://replace_the_ip_address/ph1_ltdata", function(data) {  
+		$.each(data[0], function(key, value){
+            time = value[1];
+            document.getElementById("time").innerHTML = time; 
+        });
+        $.each(data[1], function(key, value){
+            device_state = value[1];
+            document.getElementById("dev_state").innerHTML = device_state;
+        });
+        $.each(data[2], function(key, value){
+            call_state = value[1];
+            document.getElementById("call_state").innerHTML = call_state;
+        });
+
+        setTimeout(function(){updateData()}, 1000); 
+    });
+
+    }
+}
+</script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <style>
+        h1 {text-align: center; color: gray;}
+    </style>
+</head> 
+	<body>
+		<div>
+            <h1>PHONE DATA</h1><br>
+        </div> 
+        <div>
+            <h2 style="font-size: 38px; display: inline; color: gray">DEVICE STATE: </h2> 
+            <h2 id="dev_state" style="font-size: 36px; display: inline; color:maroon"></h2><br><br><br>
+
+            <h2 style="font-size: 38px; display: inline ; color: gray">CALL STATE: </h2> 
+            <h2 id="call_state" style="font-size: 36px; display: inline; color:maroon"></h2><br><br><br> 
+
+            <h2 style="font-size: 38px; display: inline; color: gray">AT TIME: </h2> 
+            <h2 id="time" style="font-size: 36px; display: inline; color:maroon"></h2> 
+        </div>
+			
+			
+	</body>
+</html> 

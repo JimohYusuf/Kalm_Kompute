@@ -1,0 +1,279 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script type="text/javascript">
+window.onload = function() {
+
+    var co_dataPoints = [];
+	var temp_dataPoints = [];
+	var pres_dataPoints = [];
+	var hum_dataPoints 	= [];
+
+    var co_chart;
+	var temp_chart;
+	var pres_chart;
+	var hum_chart;
+	
+
+	CanvasJS.addColorSet("red",["#8B0000"]); 
+	CanvasJS.addColorSet("green",["#006400"]); 
+	CanvasJS.addColorSet("azure",["#F0FFFF"]); 
+	CanvasJS.addColorSet("gold",["#DAA520"]);
+
+
+	$.getJSON("http://replace_the_ip_address/l2_data", function(data) {  
+
+        $.each(data[0], function(key, value){
+			co_dataPoints.push({label: value[0], y: parseFloat(value[1])});
+		});
+		$.each(data[1], function(key, value){
+			temp_dataPoints.push({label: value[0], y: parseFloat(value[1])});
+		});
+		$.each(data[2], function(key, value){
+			pres_dataPoints.push({label: value[0], y: parseFloat(value[1])});
+		});
+		$.each(data[3], function(key, value){
+			hum_dataPoints.push({label: value[0], y: parseFloat(value[1])});
+		});
+
+        co_chart = new CanvasJS.Chart("coChartContainer",{
+
+            colorSet: "gold",
+
+            title:{
+                text: "Carbon Monoxide Data"
+            },
+            axisX:{
+                title: "Time",
+                gridThickness: 2
+            },
+            axisY: {
+                title: "CO level",
+                includeZero: false
+            },
+            data: [{
+                type: "spline",
+                dataPoints : co_dataPoints,
+            }]
+        });
+		
+		temp_chart = new CanvasJS.Chart("tempChartContainer",{
+
+			colorSet: "red",
+
+			title:{
+				text: "Temperature Data"
+			},
+			axisX:{
+				title: "Time",
+				gridThickness: 2
+			},
+			axisY: {
+				title: "Temperature",
+				includeZero: false
+			},
+			data: [{
+				type: "spline",
+				dataPoints : temp_dataPoints,
+			}]
+		});
+
+		pres_chart = new CanvasJS.Chart("presChartContainer",{
+			title:{
+				text: "Pressure Data"
+			},
+			axisX:{
+				title: "Time",
+				gridThickness: 2
+			},
+			axisY: {
+				title: "Pressure",
+				includeZero: false
+			},
+			data: [{
+				type: "spline",
+				dataPoints : pres_dataPoints,
+			}]
+		});
+
+		hum_chart = new CanvasJS.Chart("humChartContainer",{
+			
+			colorSet: "green",
+
+			title:{
+				text: "Humidity Data"
+			},
+			axisX:{
+				title: "Time",
+				gridThickness: 2
+			},
+			axisY: {
+				title: "Humidity",
+				includeZero: false
+			},
+			data: [{
+				type: "spline",
+				dataPoints : hum_dataPoints,
+			}]
+		});
+
+
+        co_chart.render();
+		temp_chart.render();
+		pres_chart.render();
+		hum_chart.render();
+		
+
+		updateChart();
+	});
+
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	function get_average(datarray){
+			total = 0;
+			for(var i = 0; i < datarray.length; i++){
+				total += datarray[i].y;
+			}
+			average = (total/datarray.length);
+			return average; 
+		}
+	
+	function get_min(datarray){
+		datapoints = [];
+		
+		for (var i = 0; i < datarray.length; i++){
+			datapoints.push(datarray[i].y);
+		}
+
+		minimum = Math.min(...datapoints);
+		return minimum; 
+	}
+
+	function get_max(datarray){
+		datapoints = [];
+		
+		for (var i = 0; i < datarray.length; i++){
+			datapoints.push(datarray[i].y);
+		}
+
+		maximum = Math.max(...datapoints);
+		return maximum; 
+	}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	function updateChart() {
+	$.getJSON("http://replace_the_ip_address/l2_ltdata", function(data) {
+        $.each(data[0], function(key, value) { 
+			co_dataPoints.push({
+			label: value[0],
+			y: parseFloat(value[1]) 
+			});
+
+			document.getElementById("max_co").innerHTML = get_max(co_dataPoints).toFixed(2); 
+			document.getElementById("min_co").innerHTML = get_min(co_dataPoints).toFixed(2); 
+			document.getElementById("avg_co").innerHTML = get_average(co_dataPoints).toFixed(2); 
+		});
+
+		$.each(data[1], function(key, value) { 
+			temp_dataPoints.push({
+			label: value[0],
+			y: parseFloat(value[1])
+			});
+
+			document.getElementById("max_temp").innerHTML = get_max(temp_dataPoints).toFixed(2); 
+			document.getElementById("min_temp").innerHTML = get_min(temp_dataPoints).toFixed(2); 
+			document.getElementById("avg_temp").innerHTML = get_average(temp_dataPoints).toFixed(2); 
+			
+		});
+
+		$.each(data[2], function(key, value) { 
+			pres_dataPoints.push({
+			label: value[0],
+			y: parseFloat(value[1])
+			});
+
+			document.getElementById("max_pres").innerHTML = get_max(pres_dataPoints).toFixed(2); 
+			document.getElementById("min_pres").innerHTML = get_min(pres_dataPoints).toFixed(2); 
+			document.getElementById("avg_pres").innerHTML = get_average(pres_dataPoints).toFixed(2); 
+		});
+
+		$.each(data[3], function(key, value) { 
+			hum_dataPoints.push({
+			label: value[0],
+			y: parseFloat(value[1])
+			});
+
+			document.getElementById("max_hum").innerHTML = get_max(hum_dataPoints).toFixed(2); 
+			document.getElementById("min_hum").innerHTML = get_min(hum_dataPoints).toFixed(2); 
+			document.getElementById("avg_hum").innerHTML = get_average(hum_dataPoints).toFixed(2);
+		});
+
+		co_chart.render();
+		temp_chart.render();
+		pres_chart.render();
+		hum_chart.render();
+
+		setTimeout(function(){updateChart()}, 60000);
+	});
+	}
+}
+</script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<style>
+	table, th, td {
+		border: 1px solid black; 
+	}
+	th, td {
+	padding: 15px;
+	}
+</style>
+
+</head>
+<body>
+	<div>
+		<h2>LIBELIUM WASP SENSOR DATA</h2> 
+		
+		<table style="width:100%">
+			<caption><h3>Data Statistics</h3></caption>   
+			<tr>
+				<th> </th>
+				<th>Carbon Monoxide</th>
+				<th>Temperature</th>
+				<th>Pressure</th> 
+				<th>Humidity</th>
+			<tr>
+				<th>Maximum</th>
+				<td id="max_co"></td> 
+				<td id="max_temp"></td>
+				<td id="max_pres"></td>
+				<td id="max_hum"></td>
+			</tr>
+			<tr>
+				<th>Minimum</th>
+				<td id="min_co"></td>
+				<td id="min_temp"></td>
+				<td id="min_pres"></td>
+				<td id="min_hum"></td>
+			</tr>
+			<tr>
+				<th>Average</th> 
+				<td id="avg_co"></td>
+				<td id="avg_temp"></td>
+				<td id="avg_pres"></td>
+				<td id="avg_hum"></td>
+			</tr>
+			
+		</table>
+			
+	</div>
+	<div id="coChartContainer" style="height: 300px; width: 100%; margin-top: 50px"></div> 
+	<div id="tempChartContainer" style="height: 300px; width: 100%; margin-top: 50px"></div>
+	<div id="presChartContainer" style="height: 300px; width: 100%; margin-top: 50px"></div>
+	<div id="humChartContainer" style="height: 300px; width: 100%; margin-top: 50px"></div> 
+</body>
+</html>

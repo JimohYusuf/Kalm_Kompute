@@ -62,7 +62,7 @@ void loop()
     USB.print(F(" Time(ms):"));    
     USB.println(millis()-previous);
 
-    error = WIFI_PRO.ping("192.168.1.159");
+    error = WIFI_PRO.ping("10.0.0.35");
 
     if (error == 0)
     {				

@@ -5,7 +5,7 @@
 uint8_t socket = SOCKET0;
 
 char type[] = "http";
-char host[] = "192.168.1.159";
+char host[] = "10.0.0.35";
 char port[] = "80";
 char url[]  = "libelium_1";
 

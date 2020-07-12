@@ -63,7 +63,7 @@ void loop()
     for( int i=0; i<10; i++ )
     {
       // 3. ping
-      error = WIFI_PRO.ping("192.168.1.159"); 
+      error = WIFI_PRO.ping("10.0.0.35"); 
     
       // check response
       if( error == 0 )

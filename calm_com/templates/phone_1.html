@@ -12,7 +12,7 @@
 
 <script type="text/javascript">
     window.onload = function() {
-	$.getJSON("http://192.168.1.159/ph1_ltdata", function(data) {  
+	$.getJSON("http://10.0.0.35/ph1_ltdata", function(data) {  
        
 		$.each(data[0], function(key, value){
             time = value[1];  
@@ -31,7 +31,7 @@
     });
 
     function updateData(){
-        $.getJSON("http://192.168.1.159/ph1_ltdata", function(data) {  
+        $.getJSON("http://10.0.0.35/ph1_ltdata", function(data) {  
 		$.each(data[0], function(key, value){
             time = value[1];
             document.getElementById("time").innerHTML = time; 

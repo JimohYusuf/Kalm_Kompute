@@ -95,8 +95,8 @@ def start_ga(query_text):
 
     api_endpoint = 'embeddedassistant.googleapis.com' 
     credentials = os.path.join(click.get_app_dir('google-oauthlib-tool'),'credentials.json') 
-    device_model_id = 'sensormain1-sensormain1-qpwstx' 
-    device_id = 'sensormain1'
+    device_model_id = 'dsasd' 
+    device_id = 'ddsa'
     lang = 'en-US'
     display = False
     verbose = False

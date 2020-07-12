@@ -21,7 +21,7 @@ window.onload = function() {
 	CanvasJS.addColorSet("gold",["#DAA520"]);
 
 
-	$.getJSON("http://192.168.1.159/l2_data", function(data) {  
+	$.getJSON("http://10.0.0.35/l2_data", function(data) {  
 
         $.each(data[0], function(key, value){
 			co_dataPoints.push({label: value[0], y: parseFloat(value[1])});
@@ -165,7 +165,7 @@ window.onload = function() {
 
 
 	function updateChart() {
-	$.getJSON("http://192.168.1.159/l2_ltdata", function(data) {
+	$.getJSON("http://10.0.0.35/l2_ltdata", function(data) {
         $.each(data[0], function(key, value) { 
 			co_dataPoints.push({
 			label: value[0],

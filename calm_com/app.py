@@ -29,7 +29,7 @@ FAIL    = "POST Failed"
 #flask handle
 server = Flask(__name__)
 #assistant
-assist = Assistant(server, project_id='sensorreadings-qccmpb')
+assist = Assistant(server, project_id='dadsa')
 
 #db param handle
 dbParam = yaml.safe_load(open('loginParams.yaml')) 
@@ -988,4 +988,4 @@ def getLatestData(cursor_object, table_name):
 ###################################### START SERVER ############################################################# 
 
 if __name__ == '__main__':
-   server.run(debug=True, host='192.168.1.159', port='80')   
+   server.run(debug=True, host='10.0.0.35', port='80')   
