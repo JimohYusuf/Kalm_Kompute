@@ -1,1 +1,5 @@
+#!/bin/bash
+
+source ~/env/bin/activate
+cd ./calm_com
 authbind --deep python app.py
