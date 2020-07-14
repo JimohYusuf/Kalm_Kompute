@@ -265,26 +265,22 @@ Let’s begin the installation
 
 *   On stopping the app, the application would print a toast message: **Heart Rate Monitoring Stopped. **
 
-**UNDERSTANDING THE PHONE’S DATA**
+### UNDERSTANDING THE PHONE’S DATA 
 
 
 
-*   **ALLOWED DEVICE MOTION STATES**
+**ALLOWED DEVICE MOTION STATES** 
 
-        **DEVICE IDLE:** This indicates that the phone is not moving.
+*   **DEVICE IDLE:** This indicates that the phone is not moving.
 
+*   **DEVICE MOVING:** This indicates that the phone is moving. 
 
-        **DEVICE MOVING:** This indicates that the phone is moving. 
+**ALLOWED CALL STATES**
 
-*   **ALLOWED CALL STATES **
+*   **CALL-IDLE:** This indicates that the user is not having a call and the phone is not ringing. 
 
-        **CALL-IDLE:** This indicates that the user is not having a call and the phone is not ringing. 
+*   **CALL-ACTIVE:**This indicates that the user has accepted an incoming call. 
 
+*   **RINGING:** This indicates that the user has an incoming call that has not been picked up yet.
 
-        **CALL-ACTIVE: **This indicates that the user has accepted an incoming call. 
-
-
-        **RINGING:** This indicates that the user has an incoming call that has not been picked up yet.
-
-
-        **OUTGOING CALL:** This indicates that the user is making an outgoing call.
+*   **OUTGOING CALL:** This indicates that the user is making an outgoing call. 

@@ -66,7 +66,7 @@
 5. To stop the service, click on the “STOP SERVICE” button. You’ll then see the initial startup screen again.
 
 
-    **WATCH APPLICATION OPERATION**
+**WATCH APPLICATION OPERATION**
 
 
 
@@ -106,24 +106,28 @@
 **SYSTEM USE CASE**
 
 
-    Here, we are going to present a use case scenario for the system which we have built so far. Everything we are going to present here can be found in [this](https://drive.google.com/file/d/1S-f0tatsOfERA_kvf6cCITm2riajSulr/view?usp=sharing) video.
+* Here, we are going to present a use case scenario for the system which we have built so far. Everything we are going to present here can be found in [this](https://drive.google.com/file/d/1S-f0tatsOfERA_kvf6cCITm2riajSulr/view?usp=sharing) video.
 
 
-    **ENVIRONMENTAL SENSORS (CASE 1) **
+**ENVIRONMENTAL SENSORS (CASE 1)**
 
 
-    Though everyone might have unique preferences for what they refer to as being “calm”, we still generally share some of those preferences. We are going to try to simulate some possible use scenarios for the system defined above to demonstrate just how we might be able to achieve a calm environment using the system which we have described in the previous sections.
+* Though everyone might have unique preferences for what they refer to as being “calm”, we still generally share some of those preferences. We are going to try to simulate some possible use scenarios for the system defined above to demonstrate just how we might be able to achieve a calm environment using the system which we have described in the previous sections.
 
 
-    The libelium sensors have temperature, humidity, luminosity, illuminance, CO level and pressure sensors. Let’s say we define calm to be:
-
+* The libelium sensors have temperature, humidity, luminosity, illuminance, CO level and pressure sensors. Let’s say we define calm to be:
 
 
 *   Temperature less than 25 degrees celsius and greater than 17 degrees celsius
+
 *   Humidity less that 60% and greater than 15% 
+
 *   Pressure as 100,000 ∓ 2000 Pa
+
 *   CO level less than 0.3 ppm
+
 *   Illuminance less than 1000 lux
+
 *   Luminosity less than 1000 lumens
 
 	To implement this, you simply go to the system’s web page:
