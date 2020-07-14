@@ -1,4 +1,4 @@
-**SETUP GUIDE FOR SERVER AND MOBILE APPLICATION**
+### SETUP GUIDE FOR SERVER AND MOBILE APPLICATION 
 
 Kindly follow the steps below carefully to set up the application. 
 
@@ -233,7 +233,7 @@ Let’s begin the installation
 
 
 
-*   Install the watch app using the TPK file in [this](google.com) folder.
+*   Install the watch app using the TPK file in [this](https://google.com) folder.
 
 *   Launch the application after installation and one will be required to grant the application permissions to access the device’s sensors (Heart rate sensor in our case). Click the “check mark” sign to grant permission. Note that the app will not work without the permission being granted. 
 
