@@ -243,7 +243,7 @@ Let’s begin the installation
 
 *   Then enter the time interval in which you would like to measure and report the heart rate reading (in seconds). Default value is 30 seconds. 
 
-*   Click the **Connect** button again. 
+*   Click the **Connect** button. 
 
 *   The application will run if the watch has an active internet connection (Wi-Fi, ethernet, or mobile(LTE)) and the server is running.
 
