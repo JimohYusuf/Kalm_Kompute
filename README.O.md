@@ -1,10 +1,12 @@
-### WASPMOTE & PLUG & SENSE
+# Operations Manual 
+
+### WASPMOTE & PLUG & SENSE 
 
 
 
 1. Turn on the Waspmote switch and the Plug & Sense switch
 
-**STARTING THE SERVER**
+### STARTING THE SERVER
 
 
 
@@ -30,7 +32,7 @@
 
 10. You can also download the data as csv files using the last two buttons
 
-**DIRECTLY ACCESS AND MODIFY THE DATABASE**
+### DIRECTLY ACCESS AND MODIFY THE DATABASE 
 
 
 
@@ -51,7 +53,7 @@
 6. To safely exit the database system and return to the command line, type 
 *   `exit`
 
-**MOBILE APPLICATION OPERATION**
+### MOBILE APPLICATION OPERATION
 
 
 
@@ -66,7 +68,7 @@
 5. To stop the service, click on the “STOP SERVICE” button. You’ll then see the initial startup screen again.
 
 
-**WATCH APPLICATION OPERATION**
+### WATCH APPLICATION OPERATION 
 
 
 
@@ -103,13 +105,13 @@
 *   You can also always go back to the app and click the **Stop** button to stop the app from recording heart rate data.
 * On stopping the app, the application would print a toast message: **Heart Rate Monitoring Stopped.** 
 
-**SYSTEM USE CASE**
+## SYSTEM USE CASE
 
 
 * Here, we are going to present a use case scenario for the system which we have built so far. Everything we are going to present here can be found in [this](https://drive.google.com/file/d/1S-f0tatsOfERA_kvf6cCITm2riajSulr/view?usp=sharing) video.
 
 
-**ENVIRONMENTAL SENSORS (CASE 1)**
+### ENVIRONMENTAL SENSORS (CASE 1)
 
 
 * Though everyone might have unique preferences for what they refer to as being “calm”, we still generally share some of those preferences. We are going to try to simulate some possible use scenarios for the system defined above to demonstrate just how we might be able to achieve a calm environment using the system which we have described in the previous sections.
@@ -145,7 +147,7 @@
     Click submit and that is all. Whenever an extreme value is met, the action you selected is carried out. You can always go back to the extreme value page and change your settings. 
 
 
-    **SMARTPHONE APPLICATION (CASE 2)**
+### SMARTPHONE APPLICATION (CASE 2)
 
 
     Now let’s say you would like your house an automated “calm” environment, and part of what you define as calm is your TV or speaker’s audio being reduced whenever you are making a call. Well all you have to do is configure that action in the configuration page. 

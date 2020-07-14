@@ -1,3 +1,5 @@
+# Installation Manual 
+
 ### SETUP GUIDE FOR SERVER AND MOBILE APPLICATION 
 
 Kindly follow the steps below carefully to set up the application. 
