@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .button {
+               background-color:green;
+               color: white;
+               border: 2px solid ;
+               border-radius: 6px; 
+               padding: 15px 32px;
+               text-align: center; 
+               text-decoration: none;
+               display: inline-block;
+               font-size: 16px;
+               margin: 4px 2px;
+               cursor: pointer;
+             } 
+         </style>
+    </head>
+    <body>
+        <div>
+            <h3 style="color: maroon;">YOU HAVE SUCCESSFULLY ADDED {{sensor_name|safe}} WITH COLUMNS {{column_names|safe}} TO THE DATABASE SERVER</h3> 
+
+            <input type="button" id="home" onclick="location.href='/home'" value="Go to home page" class="button" style="font-size:16px;"><br>  
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .button {
+               background-color:green;
+               color: white;
+               border: 2px solid ;
+               border-radius: 6px; 
+               padding: 15px 32px;
+               text-align: center; 
+               text-decoration: none;
+               display: inline-block;
+               font-size: 16px;
+               margin: 4px 2px;
+               cursor: pointer;
+             } 
+         </style>
+    </head>
+    <body>
+        <div>
+            <h3>Register a new Device/Sensor</h3> 
+            <form action="/add_sensor" method="POST"> 
+                <div>
+                    <label for="sensor_name">Sensor/Device Name</label> <br>  
+                    <input type="text" id="sensor_name" name="sensor_name"><br> <br> <br>   
+                    <label for="col_names">Data Column Names (seperate with commas, NO SPACES between names)</label><br>   
+                    <input type="text" id="col_names" name="col_names"><br> <br> <br>  
+                </div> 
+                <div style="margin-top: 20px"> 
+                    <input type="submit" value="add" class="button"> 
+                </div>        
+            </form>
+        </div>
+    </body>
+</html>

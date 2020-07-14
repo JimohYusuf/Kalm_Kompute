@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .button {
+               background-color:green;
+               color: white;
+               border: 2px solid ;
+               border-radius: 6px; 
+               padding: 15px 32px;
+               text-align: center; 
+               text-decoration: none;
+               display: inline-block;
+               font-size: 16px;
+               margin: 4px 2px;
+               cursor: pointer;
+             } 
+         </style>
+    </head>
+    <body>
+        <div>
+            <h3>Download Sensor/Device Data has a CSV File</h3> 
+            <form action="/download_any" method="POST">  
+                <div>
+                    <label for="table_name">Sensor/Device Name (Enter exact name (case sensitive))</label><br>   
+                    <input type="text" id="table_name" name="table_name"><br> <br> <br>   
+                    <label for="points">No of Most Recent Datapoints You Want To Download (Enter 0 to download all datapoints)</label><br>   
+                    <input type="number" id="points" name="points"><br> <br> <br>  
+                </div> 
+                <div style="margin-top: 20px"> 
+                    <input type="submit" value="download" class="button"> 
+                </div>        
+            </form>
+        </div>
+    </body>
+</html>

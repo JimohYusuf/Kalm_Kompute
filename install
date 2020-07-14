@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 
 sudo apt update && sudo apt upgrade -y
 
@@ -27,13 +27,23 @@ mysql -uroot -proot -e "CREATE DATABASE calm_computing;"
 
 mysql -uroot -proot -e "USE calm_computing;"
 
-mysql -uroot -proot -e "CREATE TABLE calm_computing.mlibelium_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), temperature varchar(30), pressure varchar(30), humidity varchar(30), lux varchar(30), lumen varchar(30), primary key(id));"
+mysql -uroot -proot -e "CREATE TABLE calm_computing.libelium_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), temperature varchar(30), pressure varchar(30), humidity varchar(30), lux varchar(30), lumen varchar(30), primary key(id));"
 
-mysql -uroot -proot -e "CREATE TABLE calm_computing.mlibelium_2(id int AUTO_INCREMENT, date varchar(30), time varchar(30), CO varchar(30), temperature varchar(30), pressure varchar(30), humidity varchar(30), primary key(id));"
+mysql -uroot -proot -e "CREATE TABLE calm_computing.libelium_2(id int AUTO_INCREMENT, date varchar(30), time varchar(30), CO varchar(30), temperature varchar(30), pressure varchar(30), humidity varchar(30), primary key(id));"
 
-mysql -uroot -proot -e "CREATE TABLE calm_computing.mwatch_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), heart_rate varchar(30), primary key(id));"
+mysql -uroot -proot -e "CREATE TABLE calm_computing.watch_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), heart_rate varchar(30), primary key(id));"
 
-mysql -uroot -proot -e "CREATE TABLE calm_computing.mphone_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), device_state varchar(30), call_state varchar(30), primary key(id));"
+mysql -uroot -proot -e "CREATE TABLE calm_computing.phone_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), device_state varchar(30), call_state varchar(30), primary key(id));"
+
+mysql -uroot -proot -e "CREATE TABLE calm_computing.tables_info(id int AUTO_INCREMENT, sensor_name varchar(100), column_no int, column_names varchar(1024), display_all varchar(200), display_rt varchar(200), primary key(id));"
+
+mysql -uroot -proot -e "INSERT INTO calm_computing.tables_info (sensor_name, column_no, column_names, display_all, display_rt) VALUES ('libelium_1', 5, 'temperature,pressure,humidity,lux,lumen', 'libelium_1 (last 3000 datapoints)', 'libelium_1 (real-time)')"
+
+mysql -uroot -proot -e "INSERT INTO calm_computing.tables_info (sensor_name, column_no, column_names, display_all, display_rt) VALUES ('libelium_2', 4, 'CO,temperature,pressure,humidity', 'libelium_2 (last 3000 datapoints)', 'libelium_2 (real-time)')"
+
+mysql -uroot -proot -e "INSERT INTO calm_computing.tables_info (sensor_name, column_no, column_names, display_all, display_rt) VALUES ('watch_1', 1, 'heart_rate', 'watch_1 (last 3000 datapoints)', 'watch_1 (real-time)')"
+
+mysql -uroot -proot -e "INSERT INTO calm_computing.tables_info (sensor_name, column_no, column_names, display_all, display_rt) VALUES ('phone_1', 2, 'device_state,call_state', 'phone_1 (last 3000 datapoints)', 'phone_1 (real-time)')"
 
 # mysql -uroot -proot -e "CREATE DATABASE calm_computing1;"
 

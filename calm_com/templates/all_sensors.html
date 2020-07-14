@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <style>
+         .button {
+            background-color:green;
+            color: white;
+            border: 2px solid ;
+            border-radius: 6px; 
+            padding: 15px 32px;
+            text-align: center; 
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+          } 
+      </style>
+  </head>
+  <body>
+    <header>
+    <h3 style="font-size: 1.5em; color:gray; margin: auto;">ALL REGISTERED DEVICES/SENSORS</h3><br> 
+    </header>
+     
+    <div id="sensors"></div><br> 
+
+    <input type="button" id="home" onclick="location.href='/home'" value="Go to home page" class="button" style="font-size:16px;"><br> 
+    
+    <script>
+        var userRequest = new XMLHttpRequest();
+        var allUsersDiv = document.getElementById("sensors");
+
+        userRequest.open('GET', '/get_sensors'); 
+
+        userRequest.onload = function () {
+          if (userRequest.status >= 200 && userRequest.status < 400) {
+            var allUser = JSON.parse(userRequest.responseText);
+            renderUsers(allUser);
+        }
+          else {
+            console.log('Connected but there was a problem');
+          }
+        };
+
+        userRequest.onerror = function () {
+          console.log('There was an error');
+        }
+
+        userRequest.send();
+
+        function renderUsers (user) {
+          var cnt = 1;
+          user.forEach(function (users) {
+            var userDiv = document.createElement('div');
+            userDiv.innerHTML = '<h5 style="font-size: 1em; color:maroon; margin: auto;">' + cnt + '. ' + users.name + '</h5><br>'; 
+            allUsersDiv.appendChild(userDiv);
+            cnt++;
+          });
+        }
+    </script> 
+  </body>
+</html> 

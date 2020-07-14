@@ -1,5 +1,5 @@
 ######################################### IMPORTS ##########################################################################################################################################################
-from flask import Flask, render_template, request, make_response, Response
+from flask import Flask, render_template, request, make_response, Response, jsonify 
 from flask_assistant import Assistant, ask, tell
 from flask_mysqldb import MySQL
 import mysql.connector 
@@ -8,7 +8,7 @@ import sched, time
 import datetime 
 import pygal  
 import yaml 
-import json
+import json 
 import pymysql 
 import io
 import csv 
@@ -23,13 +23,13 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 ############################################################## GLOBAL VARIABLES ######################################
 #G Constants
-SUCCESS = "POST Success"
-FAIL    = "POST Failed"
+SUCCESS = "POST SUCCESS"
+FAIL    = "POST FAILED"
 
 #flask handle
 server = Flask(__name__)
 #assistant
-assist = Assistant(server, project_id='dadsa')
+assist = Assistant(server, project_id='') 
 
 #db param handle
 dbParam = yaml.safe_load(open('loginParams.yaml')) 
@@ -245,7 +245,7 @@ def phone_1():
         cur = dbConn.connection.cursor() 
 
         try:
-            cur.execute("INSERT INTO mphone_1 (date, time, device_state, call_state) VALUES(%s, %s, %s, %s)", (datte, time , device_state, call_state)) 
+            cur.execute("INSERT INTO phone_1 (date, time, device_state, call_state) VALUES(%s, %s, %s, %s)", (datte, time , device_state, call_state)) 
             dbConn.connection.commit() 
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
             print("DataError or IntegrityError")
@@ -286,7 +286,7 @@ def watch():
         cur = dbConn.connection.cursor() 
 
         try:
-            cur.execute("INSERT INTO mwatch_1 (date, time, heart_rate) VALUES(%s, %s, %s)", (datte, time , HRvalue)) 
+            cur.execute("INSERT INTO watch_1 (date, time, heart_rate) VALUES(%s, %s, %s)", (datte, time , HRvalue)) 
             dbConn.connection.commit() 
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
             print("DataError or IntegrityError")
@@ -305,7 +305,7 @@ def watch():
         return SUCCESS  
     else:
         #Handle get request
-        heartRate = getAllData(cur, "mwatch_1")  
+        heartRate = getAllData(cur, "watch_1")  
 
         graph_hr = pygal.Line() 
        
@@ -341,7 +341,7 @@ def libelium_1():
         allsensors["luminosity_l1"]   = float(lum_libelium_1) 
   
         try:
-            cur.execute("INSERT INTO mlibelium_1 (date, time, temperature, pressure, humidity, lux, lumen) VALUES (%s, %s, %s, %s, %s, %s, %s)", (datte, time, temp_libelium_1, pres_libelium_1, hum_libelium_1, lux_libelium_1, lum_libelium_1))
+            cur.execute("INSERT INTO libelium_1 (date, time, temperature, pressure, humidity, lux, lumen) VALUES (%s, %s, %s, %s, %s, %s, %s)", (datte, time, temp_libelium_1, pres_libelium_1, hum_libelium_1, lux_libelium_1, lum_libelium_1))
             dbConn.connection.commit()
 
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
@@ -361,7 +361,7 @@ def libelium_1():
         
         return SUCCESS
     else:
-        temp, pres, hum, lux, lum = getAllData(cur, "mlibelium_1")
+        temp, pres, hum, lux, lum = getAllData(cur, "libelium_1")
         
         blue_style  = Style(colors=["#00008B"])
         green_style = Style(colors=["#006400"]) 
@@ -440,7 +440,7 @@ def libelium_2():
         #################### ACTION TRIGGER LOGIC ########################
         
         try:
-            cur.execute("INSERT INTO mlibelium_2 (date, time, CO, temperature, pressure, humidity) VALUES (%s, %s, %s, %s, %s, %s)", (datte, time, CO_libelium_2, temp_libelium_2, pres_libelium_2, hum_libelium_2)) 
+            cur.execute("INSERT INTO libelium_2 (date, time, CO, temperature, pressure, humidity) VALUES (%s, %s, %s, %s, %s, %s)", (datte, time, CO_libelium_2, temp_libelium_2, pres_libelium_2, hum_libelium_2)) 
             dbConn.connection.commit()
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
             print("DataError or IntegrityError")
@@ -460,7 +460,7 @@ def libelium_2():
         return SUCCESS
     else:
         #Handle get request
-        co, temp, pres, hum = getAllData(cur, "mlibelium_2") 
+        co, temp, pres, hum = getAllData(cur, "libelium_2") 
         
         blue_style = Style(colors=["#00008B"])
         green_style = Style(colors=["#006400"]) 
@@ -488,6 +488,261 @@ def libelium_2():
 
     return render_template('libelium_2.html',  graph_data=graph_data) 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+################################################################################################################################
+#################################### NEW SENSORS ###############################################################################
+################################################################################################################################
+
+@server.route('/user_defined/<usensor_name>', methods=['POST', 'GET']) 
+def new_sensor(usensor_name):
+    if request.method == 'POST':
+        sensor_data = request.values
+
+        cur = dbConn.connection.cursor() 
+        sensor_name = usensor_name
+
+        registered_sensors = getSensorNames(cur) 
+
+        if sensor_name in registered_sensors:
+            datte               = str(datetime.date.today().strftime("%d/%m/%Y")) 
+            time                = str(datetime.datetime.now().strftime("%H:%M:%S")) 
+
+            column_names_list   = getColumnNames(cur, sensor_name).split(',') 
+
+            sensor_data_values  = [datte, time] 
+            for name in column_names_list:
+                sensor_data_values.append(sensor_data[name])
+            
+            sensor_data_tuple   = tuple(sensor_data_values)
+
+            ########################
+            sql_insert_statmnt  = "INSERT INTO " + sensor_name + " ("
+
+            for name in column_names_list:
+                sql_insert_statmnt += name + ", " 
+            
+            sql_insert_statmnt += ") VALUES("
+
+            for name in column_names_list:
+                sql_insert_statmnt += "%s, "
+            
+            sql_insert_statmnt += ")" 
+
+            #############################
+            
+            try:
+                cur.execute(sql_insert_statmnt, sensor_data_tuple) 
+                dbConn.connection.commit() 
+            except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
+                print("DataError or IntegrityError")
+                print(err)
+                return FAIL
+            except mysql.connector.ProgrammingError as err:
+                print("Programming Error")
+                print(err) 
+                return FAIL
+            except mysql.connector.Error as err:
+                print(err)
+                return FAIL
+            except MySQLdb.Error as err: 
+                print(err) 
+                return FAIL  
+            
+            return SUCCESS
+
+        else:
+            return FAIL 
+
+        return 
+
+####################################################################################
+####################################################################################
+@server.route('/add_sensor', methods=['POST', 'GET']) 
+def add_sensor():
+    global allsensors
+    if request.form:
+        cur = dbConn.connection.cursor() 
+        sensor_init = request.form 
+
+        allsensors["latest_table_name"]     = sensor_init["sensor_name"] 
+        allsensors["latest_col_names"]      = sensor_init["col_names"] 
+
+        sensor_name         = sensor_init["sensor_name"] 
+        column_names        = sensor_init["col_names"] 
+        column_names_list   = column_names.split(',') 
+        column_no           = len(column_names_list) 
+
+        button_display_all  = sensor_name + " (last 3000 datapoints)" 
+        button_display_rt   = sensor_name + " (real-time)" 
+    
+        sql_create_table = "CREATE TABLE calm_computing." + sensor_name + "(id int AUTO_INCREMENT, date varchar(30), time varchar(30)," 
+
+        for name in column_names_list:
+            sql_create_table += " " + name + " varchar(100)"
+        
+        sql_create_table += ");" 
+                        
+
+        try:
+            cur.execute(sql_create_table) 
+            cur.execute("INSERT INTO tables_info ( \
+                        sensor_name, column_no, column_names, display_all, display_rt) \
+                        VALUES (%s, %s, %s, %s)",
+                        (sensor_name, column_no, column_names, button_display_all, button_display_rt))  
+
+            dbConn.connection.commit()
+        except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
+            print("DataError or IntegrityError")
+            print(err)
+            return FAIL
+        except mysql.connector.ProgrammingError as err:
+            print("Programming Error")
+            print(err) 
+            return FAIL
+        except mysql.connector.Error as err:
+            print(err)
+            return FAIL
+        except MySQLdb.Error as err: 
+            print(err) 
+            return FAIL  
+        
+        return SUCCESS
+         
+
+    return render_template('add_success.html', sensor_name=sensor_name.upper(), column_names=column_names_list)    
+
+
+####################################################################################
+####################################################################################
+@server.route('/all_sensors', methods=['POST', 'GET']) 
+def all_sensors():
+    return render_template('all_sensors.html') 
+
+
+####################################################################################
+####################################################################################
+@server.route('/get_sensors', methods=['POST', 'GET']) 
+def get_sensors(): 
+    cur = dbConn.connection.cursor() 
+    sensors = getSensorNames(cur) 
+
+    sensors_list = [] 
+
+    for sensor in sensors: 
+        sensors_list.append({"name": sensor}) 
+
+    all_sensors_json = jsonify(sensors_list)
+    return all_sensors_json 
+
+
+############################################################
+def getNoOfColumns(cursor_object, table_name):
+    try:
+        cursor_object.execute("SELECT * FROM tables_info WHERE sensor_name=" + "\"" + table_name + "\"")  
+        all_data  = cursor_object.fetchall() 
+    except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
+        print("DataError or IntegrityError")
+        print(err)
+        return FAIL
+    except mysql.connector.ProgrammingError as err:
+        print("Programming Error")
+        print(err) 
+        return FAIL
+    except mysql.connector.Error as err:
+        print(err)
+        return FAIL
+    except MySQLdb.Error as err: 
+        print(err) 
+        return FAIL  
+
+    for row in all_data: 
+        column_no = row[2] 
+
+    return column_no 
+
+###############################################################
+def getColumnNames(cursor_object, table_name):
+    try:
+        cursor_object.execute("SELECT * FROM tables_info WHERE sensor_name=" + "\"" + table_name + "\"")  
+        all_data  = cursor_object.fetchall() 
+    except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
+        print("DataError or IntegrityError")
+        print(err)
+        return FAIL
+    except mysql.connector.ProgrammingError as err:
+        print("Programming Error")
+        print(err) 
+        return FAIL
+    except mysql.connector.Error as err:
+        print(err)
+        return FAIL
+    except MySQLdb.Error as err: 
+        print(err) 
+        return FAIL  
+
+    for row in all_data: 
+        column_names = row[3] 
+
+    return column_names
+
+##################################################################
+def getSensorNames(cursor_object):
+    try:
+        cursor_object.execute("SELECT * FROM tables_info")  
+        all_data  = cursor_object.fetchall() 
+    except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
+        print("DataError or IntegrityError")
+        print(err)
+        return FAIL
+    except mysql.connector.ProgrammingError as err:
+        print("Programming Error")
+        print(err) 
+        return FAIL
+    except mysql.connector.Error as err:
+        print(err)
+        return FAIL
+    except MySQLdb.Error as err: 
+        print(err) 
+        return FAIL  
+
+    sensor_names = [] 
+    for row in all_data: 
+        sensor_names.append(row[1]) 
+
+    return sensor_names  
+
+################################################################################################################################
+################################## NEW SENSORS END##############################################################################
+################################################################################################################################
+
+
+
+
 #################################### REAL TIME DATA LIBELIUM 1 ######################################################
 
 @server.route('/libelium_1_rt', methods=['POST', 'GET']) 
@@ -497,7 +752,7 @@ def libelium_1_rt():
 @server.route('/l1_data', methods=['POST', 'GET']) 
 def data_l1():
     cur = dbConn.connection.cursor() 
-    temp, pres, hum, lux, lum = getRealTimeData(cur, "mlibelium_1")
+    temp, pres, hum, lux, lum = getRealTimeData(cur, "libelium_1")
 
     data = [temp, pres, hum, lux, lum] 
     json_data = json.dumps(data)
@@ -507,7 +762,7 @@ def data_l1():
 @server.route('/l1_ltdata', methods=['POST', 'GET']) 
 def latestdata_l1():
     cur = dbConn.connection.cursor()
-    temp, pres, hum, lux, lum = getLatestData(cur, "mlibelium_1")
+    temp, pres, hum, lux, lum = getLatestData(cur, "libelium_1")
 
     data = [temp, pres, hum, lux, lum] 
     json_data = json.dumps(data)
@@ -522,7 +777,7 @@ def libelium_2_rt():
 @server.route('/l2_data', methods=['POST', 'GET']) 
 def data_l2():
     cur = dbConn.connection.cursor() 
-    co, temp, pres, hum = getRealTimeData(cur, "mlibelium_2")
+    co, temp, pres, hum = getRealTimeData(cur, "libelium_2")
 
     data = [co, temp, pres, hum] 
     json_data = json.dumps(data)
@@ -532,7 +787,7 @@ def data_l2():
 @server.route('/l2_ltdata', methods=['POST', 'GET']) 
 def latestdata_l2():
     cur = dbConn.connection.cursor()
-    co, temp, pres, hum = getLatestData(cur, "mlibelium_2")  
+    co, temp, pres, hum = getLatestData(cur, "libelium_2")  
 
     data = [co, temp, pres, hum] 
     json_data = json.dumps(data)
@@ -547,7 +802,7 @@ def watch_1_rt():
 @server.route('/w1_data', methods=['POST', 'GET']) 
 def data_w1():
     cur = dbConn.connection.cursor() 
-    heartRate = getRealTimeData(cur, "mwatch_1")
+    heartRate = getRealTimeData(cur, "watch_1")
 
     data = [heartRate]  
     json_data = json.dumps(data)
@@ -557,7 +812,7 @@ def data_w1():
 @server.route('/w1_ltdata', methods=['POST', 'GET']) 
 def latestdata_w1(): 
     cur = dbConn.connection.cursor()
-    heartRate = getLatestData(cur, "mwatch_1")   
+    heartRate = getLatestData(cur, "watch_1")   
 
     data = [heartRate] 
     json_data = json.dumps(data) 
@@ -568,7 +823,7 @@ def latestdata_w1():
 @server.route('/ph1_ltdata', methods=['POST', 'GET']) 
 def latestdata_ph1(): 
     cur = dbConn.connection.cursor()
-    time, dev_st, call_st = getLatestData(cur, "mphone_1")   
+    time, dev_st, call_st = getLatestData(cur, "phone_1")   
 
     data = [time, dev_st, call_st] 
     json_data = json.dumps(data) 
@@ -618,7 +873,7 @@ def download_data_1():
     try:
         cur = dbConn.connection.cursor() 
 
-        cur.execute("SELECT * FROM mlibelium_1 ORDER BY id DESC LIMIT 5000") 
+        cur.execute("SELECT * FROM libelium_1 ORDER BY id DESC LIMIT 5000") 
         result = cur.fetchall()
 
         output = io.StringIO()
@@ -643,7 +898,7 @@ def download_data_2():
     try:
         cur = dbConn.connection.cursor() 
 
-        cur.execute("SELECT * FROM mlibelium_2 ORDER BY id DESC LIMIT 5000") 
+        cur.execute("SELECT * FROM libelium_2 ORDER BY id DESC LIMIT 5000") 
         result = cur.fetchall()
 
         output = io.StringIO()
@@ -666,9 +921,9 @@ def download_data_2():
 ########################################## GET ALL DATA IN DATABASE ##################################################
 def getAllData(cursor_object, table_name):
 
-    if table_name == "mlibelium_1":
+    if table_name == "libelium_1":
         try:
-            cursor_object.execute("SELECT * FROM mlibelium_1 ORDER BY id DESC LIMIT 3000") 
+            cursor_object.execute("SELECT * FROM libelium_1 ORDER BY id DESC LIMIT 3000") 
             all_data  = cursor_object.fetchall() 
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
             print("DataError or IntegrityError")
@@ -700,9 +955,9 @@ def getAllData(cursor_object, table_name):
             lum.append(float(row[7]))  
         return temp, pres, hum, lux, lum 
 
-    elif table_name == "mlibelium_2":
+    elif table_name == "libelium_2":
         try:
-            cursor_object.execute("SELECT * FROM mlibelium_2 ORDER BY id DESC LIMIT 3000") 
+            cursor_object.execute("SELECT * FROM libelium_2 ORDER BY id DESC LIMIT 3000") 
             all_data  = cursor_object.fetchall() 
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
             print("DataError or IntegrityError")
@@ -732,9 +987,9 @@ def getAllData(cursor_object, table_name):
             hum.append(float(row[6]))  
         return co, temp, pres, hum
 
-    elif table_name == "mwatch_1":
+    elif table_name == "watch_1":
         try:
-            cursor_object.execute("SELECT * FROM mwatch_1 ORDER BY id DESC LIMIT 3000") 
+            cursor_object.execute("SELECT * FROM watch_1 ORDER BY id DESC LIMIT 3000") 
             all_data  = cursor_object.fetchall() 
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
             print("DataError or IntegrityError")
@@ -762,9 +1017,9 @@ def getAllData(cursor_object, table_name):
 
 ############################################ GET LAST X NUMBER OF DATA POINTS ############################################
 def getRealTimeData(cursor_object, table_name): 
-    if table_name == "mlibelium_1":
+    if table_name == "libelium_1":
         try:
-            cursor_object.execute("SELECT * FROM mlibelium_1 ORDER BY id DESC LIMIT 300") 
+            cursor_object.execute("SELECT * FROM libelium_1 ORDER BY id DESC LIMIT 300") 
             all_data  = cursor_object.fetchall() 
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
             print("DataError or IntegrityError")
@@ -796,9 +1051,9 @@ def getRealTimeData(cursor_object, table_name):
             lum.append([row[2], float(row[7])]) 
         return temp, pres, hum, lux, lum 
 
-    elif table_name == "mlibelium_2":
+    elif table_name == "libelium_2":
         try:
-            cursor_object.execute("SELECT * FROM mlibelium_2 ORDER BY id DESC LIMIT 300") 
+            cursor_object.execute("SELECT * FROM libelium_2 ORDER BY id DESC LIMIT 300") 
             all_data  = cursor_object.fetchall() 
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
             print("DataError or IntegrityError")
@@ -828,9 +1083,9 @@ def getRealTimeData(cursor_object, table_name):
             hum.append([row[2], float(row[6])]) 
         return co, temp, pres, hum
     
-    elif table_name == "mwatch_1":
+    elif table_name == "watch_1":
         try:
-            cursor_object.execute("SELECT * FROM mwatch_1 ORDER BY id DESC LIMIT 300") 
+            cursor_object.execute("SELECT * FROM watch_1 ORDER BY id DESC LIMIT 300") 
             all_data  = cursor_object.fetchall() 
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
             print("DataError or IntegrityError")
@@ -859,9 +1114,9 @@ def getRealTimeData(cursor_object, table_name):
 ########################################## GET THE MOST RECENT DATAPOINT #######################################################
 def getLatestData(cursor_object, table_name):   
 
-    if table_name == "mlibelium_1":
+    if table_name == "libelium_1":
         try:
-            cursor_object.execute("SELECT * FROM mlibelium_1 ORDER BY id DESC LIMIT 1") 
+            cursor_object.execute("SELECT * FROM libelium_1 ORDER BY id DESC LIMIT 1") 
             all_data  = cursor_object.fetchall() 
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
             print("DataError or IntegrityError")
@@ -892,9 +1147,9 @@ def getLatestData(cursor_object, table_name):
             lum.append([row[2], float(row[7])]) 
         return temp, pres, hum, lux, lum 
 
-    elif table_name == "mlibelium_2":
+    elif table_name == "libelium_2": 
         try:
-            cursor_object.execute("SELECT * FROM mlibelium_2 ORDER BY id DESC LIMIT 1") 
+            cursor_object.execute("SELECT * FROM libelium_2 ORDER BY id DESC LIMIT 1") 
             all_data  = cursor_object.fetchall() 
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
             print("DataError or IntegrityError")
@@ -924,9 +1179,9 @@ def getLatestData(cursor_object, table_name):
             hum.append([row[2], float(row[6])]) 
         return co, temp, pres, hum
     
-    elif table_name == "mphone_1":
+    elif table_name == "phone_1":
         try:
-            cursor_object.execute("SELECT * FROM mphone_1 ORDER BY id DESC LIMIT 1")  
+            cursor_object.execute("SELECT * FROM phone_1 ORDER BY id DESC LIMIT 1")  
             all_data  = cursor_object.fetchall() 
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
             print("DataError or IntegrityError")
@@ -955,9 +1210,9 @@ def getLatestData(cursor_object, table_name):
 
         return time, device_state, call_state
 
-    elif table_name == "mwatch_1":
+    elif table_name == "watch_1":
         try:
-            cursor_object.execute("SELECT * FROM mwatch_1 ORDER BY id DESC LIMIT 1")  
+            cursor_object.execute("SELECT * FROM watch_1 ORDER BY id DESC LIMIT 1")  
             all_data  = cursor_object.fetchall() 
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
             print("DataError or IntegrityError")
@@ -988,4 +1243,4 @@ def getLatestData(cursor_object, table_name):
 ###################################### START SERVER ############################################################# 
 
 if __name__ == '__main__':
-   server.run(debug=True, host='10.0.0.35', port='80')   
+   server.run(debug=True, host='', port='80')   

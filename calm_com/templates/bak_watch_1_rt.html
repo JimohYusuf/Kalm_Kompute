@@ -48,11 +48,16 @@ window.onload = function() {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	function get_average(datarray){
+			cnt = 0; 
 			total = 0;
 			for(var i = 0; i < datarray.length; i++){
-				total += datarray[i].y;
+				if (datarray[i].y == 0){continue;} 
+				else{
+					total += datarray[i].y;
+					cnt++;
+					}   
 			}
-			average = (total/datarray.length);
+			average = (total/cnt); 
 			return average; 
 		}
 	
@@ -60,7 +65,8 @@ window.onload = function() {
 		datapoints = [];
 		
 		for (var i = 0; i < datarray.length; i++){
-			datapoints.push(datarray[i].y);
+			if (datarray[i].y == 0){continue;} 
+			else {datapoints.push(datarray[i].y);}
 		}
 
 		minimum = Math.min(...datapoints);
@@ -71,7 +77,8 @@ window.onload = function() {
 		datapoints = [];
 		
 		for (var i = 0; i < datarray.length; i++){
-			datapoints.push(datarray[i].y);
+			if (datarray[i].y == 0){continue;} 
+			else {datapoints.push(datarray[i].y);} 
 		}
 
 		maximum = Math.max(...datapoints);
