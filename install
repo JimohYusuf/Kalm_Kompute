@@ -2,12 +2,12 @@
 
 #sudo apt update && sudo apt upgrade -y
 
-# wifi_name=$(zenity --entry --title="WiFi Name" --text="Enter the WiFi Name, make sure the computer is connected to that WiFi in the settings" 2> "/dev/null")
-# wifi_key=$(zenity --entry --title="Enter WiFi Password" --text="Enter WiFi Password" 2> "/dev/null")
-# zenity --info --title="WiFi name" --text="WiFi name in use.\n\n $wifi_name" 2> "/dev/null"
+wifi_name=$(zenity --entry --title="WiFi Name" --text="Enter the WiFi Name, make sure the computer is connected to that WiFi in the settings" 2> "/dev/null")
+wifi_key=$(zenity --entry --title="Enter WiFi Password" --text="Enter WiFi Password" 2> "/dev/null")
+zenity --info --title="WiFi name" --text="WiFi name in use.\n\n $wifi_name" 2> "/dev/null"
 
-# ip_address=$(zenity  --list  --text "Choose your IP address" --radiolist  --column "Pick" --column "IP address" TRUE $(hostname -I | cut -f1 -d' ') FALSE $(hostname -I | cut -f2 -d' ') FALSE $(hostname -I | cut -f3 -d' ') 2> "/dev/null")
-# zenity --info --title="IP address" --text="Server IP address in use.\n\n "$ip_address"" 2> "/dev/null"
+ip_address=$(zenity  --list  --text "Choose your IP address" --radiolist  --column "Pick" --column "IP address" TRUE $(hostname -I | cut -f1 -d' ') FALSE $(hostname -I | cut -f2 -d' ') FALSE $(hostname -I | cut -f3 -d' ') 2> "/dev/null")
+zenity --info --title="IP address" --text="Server IP address in use.\n\n "$ip_address"" 2> "/dev/null"
 
 # project_id=$(zenity --entry --title="DialogFLow Project ID" --text="Enter the DialogFlow Project ID.\n\n Find it in Project settings of the associated project in the Actions console or in DialogFlow." 2> "/dev/null")
 # device_id=$(zenity --entry --title="Device ID" --text="Enter the Device ID.\n\n Find it in Project settings of the associated project in the Actions console." 2> "/dev/null")
