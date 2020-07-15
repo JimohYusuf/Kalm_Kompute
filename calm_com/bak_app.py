@@ -521,15 +521,15 @@ def new_sensor(usensor_name):
             sensor_data_tuple   = tuple(sensor_data_values)
 
             ########################
-            sql_insert_statmnt  = "INSERT INTO " + sensor_name + " ("
+            sql_insert_statmnt  = "INSERT INTO " + sensor_name + " (date, time"
 
             for name in column_names_list:
-                sql_insert_statmnt += name + ", " 
+                sql_insert_statmnt += ", " + name
             
-            sql_insert_statmnt += ") VALUES("
+            sql_insert_statmnt += ") VALUES(%s, %s"
 
             for name in column_names_list:
-                sql_insert_statmnt += "%s, "
+                sql_insert_statmnt += ", %s"
             
             sql_insert_statmnt += ")" 
 
