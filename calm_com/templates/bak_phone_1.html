@@ -12,7 +12,7 @@
 
 <script type="text/javascript">
     window.onload = function() {
-	$.getJSON("http://replace_the_ip_address/ph1_ltdata", function(data) {  
+	$.getJSON("/ph1_ltdata", function(data) {  
        
 		$.each(data[0], function(key, value){
             time = value[1];  
@@ -31,7 +31,7 @@
     });
 
     function updateData(){
-        $.getJSON("http://replace_the_ip_address/ph1_ltdata", function(data) {  
+        $.getJSON("/ph1_ltdata", function(data) {
 		$.each(data[0], function(key, value){
             time = value[1];
             document.getElementById("time").innerHTML = time; 
@@ -70,8 +70,6 @@
 
             <h2 style="font-size: 38px; display: inline; color: gray">SINCE TIME: </h2> 
             <h2 id="time" style="font-size: 36px; display: inline; color:maroon"></h2> 
-        </div>
-			
-			
+        </div> 			
 	</body>
 </html> 
