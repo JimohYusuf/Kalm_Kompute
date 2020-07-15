@@ -233,7 +233,7 @@ def phone_1():
     if request.method == 'POST':  
         
         datte           = str(datetime.date.today().strftime("%d/%m/%Y"))
-        time            = str(datetime.datetime.now().strftime("%H:%M:%S")) 
+        #time            = str(datetime.datetime.now().strftime("%H:%M:%S")) 
 
         phone_1_data    = request.values
         time_stamp      = phone_1_data['time_stamp'] 
@@ -246,7 +246,7 @@ def phone_1():
         cur = dbConn.connection.cursor() 
 
         try:
-            cur.execute("INSERT INTO phone_1 (date, time, device_state, call_state) VALUES(%s, %s, %s, %s)", (datte, time , device_state, call_state)) 
+            cur.execute("INSERT INTO phone_1 (date, time, device_state, call_state) VALUES(%s, %s, %s, %s)", (datte, time_stamp , device_state, call_state)) 
             dbConn.connection.commit() 
         except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
             print("DataError or IntegrityError")

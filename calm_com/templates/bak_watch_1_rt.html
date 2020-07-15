@@ -15,7 +15,7 @@ window.onload = function() {
 	CanvasJS.addColorSet("gold",["#DAA520"]);
 
 
-	$.getJSON("http://replace_the_ip_address/w1_data", function(data) {  
+	$.getJSON("/w1_data", function(data) {  
 		$.each(data[0], function(key, value){
 			heartRate_dataPoints.push({label: value[0], y: parseFloat(value[1])});
 		}); 
@@ -89,7 +89,7 @@ window.onload = function() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	function updateChart() {
-	$.getJSON("http://replace_the_ip_address/w1_ltdata", function(data) {
+	$.getJSON("/w1_ltdata", function(data) {
 		$.each(data[0], function(key, value) { 
 			heartRate_dataPoints.push({
 			label: value[0],
