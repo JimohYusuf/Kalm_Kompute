@@ -234,6 +234,9 @@ def phone_1():
         phone_1_data    = request.values
 
         time_date       = phone_1_data['time_stamp'].split(",") 
+
+        print(time_date)
+        
         datte           = time_date[0]
         time            = time_date[1]
         device_state    = phone_1_data['device_state']
