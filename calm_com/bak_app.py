@@ -282,7 +282,7 @@ def watch():
             print("could not find key 'heartRateVal' in POST data") 
             return 
 
-        if int(HRvalue) <= 0: 
+        if int(HRvalue) > 0: 
             datte               = str(datetime.date.today().strftime("%d/%m/%Y"))
             time                = str(datetime.datetime.now().strftime("%H:%M:%S"))   
 
