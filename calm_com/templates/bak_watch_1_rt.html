@@ -4,7 +4,7 @@
 <script type="text/javascript">
 window.onload = function() {
 	var heartRate_dataPoints = [];
-	//var heartRate_unique = []; 
+	var heartRate_unique = []; 
 	var heartRate_chart;
 	var heartRate_avg; 
 	var hearRate_max;
@@ -62,7 +62,7 @@ window.onload = function() {
 			cnt = 0; 
 			total = 0;
 			for(var i = 0; i < datarray.length; i++){
-				if (datarray[i].y == 0){continue;} 
+				if (datarray[i].y <= 0){continue;} 
 				else{
 					total += datarray[i].y;
 					cnt++;
@@ -76,7 +76,7 @@ window.onload = function() {
 		datapoints = [];
 		
 		for (var i = 0; i < datarray.length; i++){
-			if (datarray[i].y == 0){continue;} 
+			if (datarray[i].y <= 0){continue;} 
 			else {datapoints.push(datarray[i].y);}
 		}
 
@@ -88,7 +88,7 @@ window.onload = function() {
 		datapoints = [];
 		
 		for (var i = 0; i < datarray.length; i++){
-			if (datarray[i].y == 0){continue;} 
+			if (datarray[i].y <= 0){continue;} 
 			else {datapoints.push(datarray[i].y);} 
 		}
 
