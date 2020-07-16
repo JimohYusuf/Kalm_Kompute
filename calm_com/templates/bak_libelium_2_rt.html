@@ -9,6 +9,11 @@ window.onload = function() {
 	var pres_dataPoints = [];
 	var hum_dataPoints 	= [];
 
+	var co_dataPoints_uniq 		= ["00:00:00:00"];
+	var temp_dataPoints_uniq 	= ["00:00:00:00"];
+	var pres_dataPoints_uniq 	= ["00:00:00:00"];
+	var hum_dataPoints_uniq 	= ["00:00:00:00"]; 
+
     var co_chart;
 	var temp_chart;
 	var pres_chart;
@@ -24,16 +29,28 @@ window.onload = function() {
 	$.getJSON("/l2_data", function(data) {  
 
         $.each(data[0], function(key, value){
-			co_dataPoints.push({label: value[0], y: parseFloat(value[1])});
+			if(co_dataPoints_uniq.includes(value[0])){
+				co_dataPoints.push({label: value[0], y: parseFloat(value[1])}); 
+				co_dataPoints_uniq.push(value[0]); 
+			}
 		});
 		$.each(data[1], function(key, value){
-			temp_dataPoints.push({label: value[0], y: parseFloat(value[1])});
+			if(!(temp_dataPoints_uniq.includes(value[0]))){
+				temp_dataPoints.push({label: value[0],y: parseFloat(value[1])});  
+				temp_dataPoints_uniq.push(value[0]);
+			}
 		});
 		$.each(data[2], function(key, value){
-			pres_dataPoints.push({label: value[0], y: parseFloat(value[1])});
+			if(!(pres_dataPoints_uniq.includes(value[0]))){
+				pres_dataPoints.push({label: value[0],y: parseFloat(value[1])});  
+				pres_dataPoints_uniq.push(value[0]); 
+			} 
 		});
 		$.each(data[3], function(key, value){
-			hum_dataPoints.push({label: value[0], y: parseFloat(value[1])});
+			if(!(hum_dataPoints_uniq.includes(value[0]))){
+				hum_dataPoints.push({label: value[0],y: parseFloat(value[1])});  
+				hum_dataPoints_uniq.push(value[0]);
+			} 
 		});
 
         co_chart = new CanvasJS.Chart("coChartContainer",{
@@ -167,10 +184,11 @@ window.onload = function() {
 	function updateChart() {
 	$.getJSON("/l2_ltdata", function(data) {
         $.each(data[0], function(key, value) { 
-			co_dataPoints.push({
-			label: value[0],
-			y: parseFloat(value[1]) 
-			});
+			
+			if(co_dataPoints_uniq.includes(value[0])){
+				co_dataPoints.push({label: value[0], y: parseFloat(value[1])}); 
+				co_dataPoints_uniq.push(value[0]); 
+			} 
 
 			document.getElementById("max_co").innerHTML = get_max(co_dataPoints).toFixed(2); 
 			document.getElementById("min_co").innerHTML = get_min(co_dataPoints).toFixed(2); 
@@ -178,10 +196,11 @@ window.onload = function() {
 		});
 
 		$.each(data[1], function(key, value) { 
-			temp_dataPoints.push({
-			label: value[0],
-			y: parseFloat(value[1])
-			});
+			
+			if(!(temp_dataPoints_uniq.includes(value[0]))){
+				temp_dataPoints.push({label: value[0],y: parseFloat(value[1])});  
+				temp_dataPoints_uniq.push(value[0]);
+			}
 
 			document.getElementById("max_temp").innerHTML = get_max(temp_dataPoints).toFixed(2); 
 			document.getElementById("min_temp").innerHTML = get_min(temp_dataPoints).toFixed(2); 
@@ -190,10 +209,11 @@ window.onload = function() {
 		});
 
 		$.each(data[2], function(key, value) { 
-			pres_dataPoints.push({
-			label: value[0],
-			y: parseFloat(value[1])
-			});
+		
+			if(!(pres_dataPoints_uniq.includes(value[0]))){
+				pres_dataPoints.push({label: value[0],y: parseFloat(value[1])});  
+				pres_dataPoints_uniq.push(value[0]); 
+			} 
 
 			document.getElementById("max_pres").innerHTML = get_max(pres_dataPoints).toFixed(2); 
 			document.getElementById("min_pres").innerHTML = get_min(pres_dataPoints).toFixed(2); 
@@ -201,10 +221,11 @@ window.onload = function() {
 		});
 
 		$.each(data[3], function(key, value) { 
-			hum_dataPoints.push({
-			label: value[0],
-			y: parseFloat(value[1])
-			});
+
+			if(!(hum_dataPoints_uniq.includes(value[0]))){
+				hum_dataPoints.push({label: value[0],y: parseFloat(value[1])});  
+				hum_dataPoints_uniq.push(value[0]);
+			} 
 
 			document.getElementById("max_hum").innerHTML = get_max(hum_dataPoints).toFixed(2); 
 			document.getElementById("min_hum").innerHTML = get_min(hum_dataPoints).toFixed(2); 

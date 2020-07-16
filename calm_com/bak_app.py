@@ -239,30 +239,33 @@ def phone_1():
         device_state    = phone_1_data['device_state']
         call_state      = phone_1_data['call_state'] 
 
-        allsensors["device_state"] = device_state
-        allsensors["call_state"] = call_state
+        if device_state != "UNDEFINED":
 
-        cur = dbConn.connection.cursor() 
+            allsensors["device_state"] = device_state
+            allsensors["call_state"] = call_state
 
-        try:
-            cur.execute("INSERT INTO phone_1 (date, time, device_state, call_state) VALUES(%s, %s, %s, %s)", (datte, time, device_state, call_state)) 
-            dbConn.connection.commit() 
-        except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
-            print("DataError or IntegrityError")
-            print(err)
-            return FAIL
-        except mysql.connector.ProgrammingError as err:
-            print("Programming Error")
-            print(err) 
-            return FAIL
-        except mysql.connector.Error as err:
-            print(err)
-            return FAIL
-        except MySQLdb.Error as err: 
-            print(err) 
-            return FAIL  
-        
-        return SUCCESS
+            cur = dbConn.connection.cursor() 
+
+            try:
+                cur.execute("INSERT INTO phone_1 (date, time, device_state, call_state) VALUES(%s, %s, %s, %s)", (datte, time, device_state, call_state)) 
+                dbConn.connection.commit() 
+            except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
+                print("DataError or IntegrityError")
+                print(err)
+                return FAIL
+            except mysql.connector.ProgrammingError as err:
+                print("Programming Error")
+                print(err) 
+                return FAIL
+            except mysql.connector.Error as err:
+                print(err)
+                return FAIL
+            except MySQLdb.Error as err: 
+                print(err) 
+                return FAIL  
+            
+            return SUCCESS
+        return SUCCESS 
     return render_template('phone_1.html')  
 
 
@@ -279,29 +282,32 @@ def watch():
             print("could not find key 'heartRateVal' in POST data") 
             return 
 
-        datte               = str(datetime.date.today().strftime("%d/%m/%Y"))
-        time                = str(datetime.datetime.now().strftime("%H:%M:%S"))   
+        if int(HRvalue) <= 0: 
+            datte               = str(datetime.date.today().strftime("%d/%m/%Y"))
+            time                = str(datetime.datetime.now().strftime("%H:%M:%S"))   
 
-        allsensors["heart_rate"]  = int(HRvalue)  
+            allsensors["heart_rate"]  = int(HRvalue)  
 
-        try:
-            cur.execute("INSERT INTO watch_1 (date, time, heart_rate) VALUES(%s, %s, %s)", (datte, time , HRvalue)) 
-            dbConn.connection.commit() 
-        except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
-            print("DataError or IntegrityError")
-            print(err)
-            return FAIL
-        except mysql.connector.ProgrammingError as err:
-            print("Programming Error")
-            print(err) 
-            return FAIL
-        except mysql.connector.Error as err:
-            print(err)
-            return FAIL
-        except MySQLdb.Error as err: 
-            print(err) 
-            return FAIL
-        return SUCCESS  
+            
+            try:
+                cur.execute("INSERT INTO watch_1 (date, time, heart_rate) VALUES(%s, %s, %s)", (datte, time , HRvalue)) 
+                dbConn.connection.commit() 
+            except (mysql.connector.IntegrityError, mysql.connector.DataError) as err:
+                print("DataError or IntegrityError")
+                print(err)
+                return FAIL
+            except mysql.connector.ProgrammingError as err:
+                print("Programming Error")
+                print(err) 
+                return FAIL
+            except mysql.connector.Error as err:
+                print(err)
+                return FAIL
+            except MySQLdb.Error as err: 
+                print(err) 
+                return FAIL
+            return SUCCESS  
+        return SUCCESS 
     else:
         #Handle get request
         heartRate = getAllData(cur, "watch_1")  
