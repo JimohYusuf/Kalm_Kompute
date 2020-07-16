@@ -4,7 +4,7 @@
 <script type="text/javascript">
 window.onload = function() {
 	var heartRate_dataPoints = [];
-	var heartRate_unique_dataPoints = [] ; 
+	var heartRate_unique_dataPoints = []; 
 	var heartRate_chart;
 	var heartRate_avg; 
 	var hearRate_max;
@@ -20,6 +20,7 @@ window.onload = function() {
 		$.each(data[0], function(key, value){
 			
 			if(heartRate_unique_dataPoints.includes(value[0])){
+				document.write(value[0]); 
 				continue;
 			} 
 			else{
