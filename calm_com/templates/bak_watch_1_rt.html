@@ -19,7 +19,7 @@ window.onload = function() {
 	$.getJSON("/w1_data", function(data) {  
 		$.each(data[0], function(key, value){
 
-			if(!(heartRate_unique.includes(value[0]))){
+			if((heartRate_unique.includes(value[0]) == false)){ 
 				heartRate_dataPoints.push({label: value[0], y: parseFloat(value[1])});
 				heartRate_unique.push(value[0]); 
 			} 
@@ -98,7 +98,7 @@ window.onload = function() {
 	$.getJSON("/w1_ltdata", function(data) {
 		$.each(data[0], function(key, value) { 
 
-			if(!(heartRate_unique.includes(value[0]))){
+			if(!(heartRate_unique.includes(value[0]) == false)){
 				heartRate_dataPoints.push({label: value[0], y: parseFloat(value[1])});
 				heartRate_unique.push(value[0]); 
 			} 
