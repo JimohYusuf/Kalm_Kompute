@@ -234,9 +234,6 @@ def phone_1():
         phone_1_data    = request.values
 
         time_date       = phone_1_data['time_stamp'].split(",") 
-
-        print(time_date)
-        
         datte           = time_date[0]
         time            = time_date[1]
         device_state    = phone_1_data['device_state']
@@ -997,7 +994,6 @@ def download_any():
             for name in column_names:
                 line.append(name)  
 
-            print(line) 
             writer.writerow(line)
 
             for row in result: 
@@ -1005,7 +1001,6 @@ def download_any():
                 cnt = 3
                 for name in column_names:
                     line.append(row[cnt])
-                    print(row[cnt]) 
                     cnt += 1 
                 writer.writerow(line)
             
