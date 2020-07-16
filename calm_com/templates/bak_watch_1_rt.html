@@ -105,13 +105,13 @@ window.onload = function() {
 
 			heartRate_dataPoints.push({label: value[0], y: parseFloat(value[1])});
 
-			// if(heartRate_unique.includes(value[0])){
-			// 	continue;
-			// }
-			// else{
-			// 	heartRate_dataPoints.push({label: value[0], y: parseFloat(value[1])});
-			// 	heartRate_unique.push(value[0]); 
-			// }
+			if(heartRate_unique.includes(value[0])){
+				hearRate_unique = heartRate_unique; 
+			}
+			else{
+				heartRate_dataPoints.push({label: value[0], y: parseFloat(value[1])});
+				heartRate_unique.push(value[0]); 
+			}
 			document.getElementById("max_heartRate").innerHTML = get_max(heartRate_dataPoints).toFixed(2); 
 			document.getElementById("min_heartRate").innerHTML = get_min(heartRate_dataPoints).toFixed(2); 
 			document.getElementById("avg_heartRate").innerHTML = get_average(heartRate_dataPoints).toFixed(2);     
