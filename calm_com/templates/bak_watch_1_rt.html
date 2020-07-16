@@ -4,7 +4,7 @@
 <script type="text/javascript">
 window.onload = function() {
 	var heartRate_dataPoints = [];
-	var heartRate_unique_dataPoints = []  
+	var heartRate_unique_dataPoints = [] ; 
 	var heartRate_chart;
 	var heartRate_avg; 
 	var hearRate_max;
@@ -21,7 +21,7 @@ window.onload = function() {
 			
 			if(heartRate_unique_dataPoints.includes(value[0])){
 				continue;
-			}
+			} 
 			else{
 				heartRate_dataPoints.push({label: value[0], y: parseFloat(value[1])});
 				heartRate_unique_dataPoints.push(value[0]); 
@@ -100,6 +100,7 @@ window.onload = function() {
 	function updateChart() {
 	$.getJSON("/w1_ltdata", function(data) {
 		$.each(data[0], function(key, value) { 
+
 			if(heartRate_unique_dataPoints.includes(value[0])){
 				continue;
 			}
