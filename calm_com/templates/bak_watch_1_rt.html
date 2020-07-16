@@ -16,8 +16,6 @@ window.onload = function() {
 	CanvasJS.addColorSet("gold",["#DAA520"]);
 
 
-	document.write("got here: " + heartRate_unique); 
-
 	$.getJSON("/w1_data", function(data) {  
 		$.each(data[0], function(key, value){
 
