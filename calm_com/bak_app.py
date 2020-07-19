@@ -805,14 +805,14 @@ def download_any():
         if str(table_name) == "all":
             all_tables = getSensorNames(cur) 
 
-            data_dict = []
+            
             print(all_tables) 
+            
             for table in all_tables: 
-                data_dict.append(download_csv_file(cur,no_of_points,table)) 
-                return tuple(data_dict) 
+                download_csv_file(cur,no_of_points,table) 
         else:
-            csv_data = download_csv_file(cur,no_of_points,table_name)
-            return csv_data 
+            download_csv_file(cur,no_of_points,table_name)
+            
 
     return SUCCESS    
 
@@ -849,7 +849,7 @@ def download_csv_file(cur, no_of_points, table_name):
         print("here")
         
         output.seek(0)
-        return Response(output, mimetype="text/csv", headers={"Content-Disposition":"attachment;filename=" + table_name + "_data.csv"}) 
+        Response(output, mimetype="text/csv", headers={"Content-Disposition":"attachment;filename=" + table_name + "_data.csv"}) 
     except Exception as e:
         print(e)
         return SOMETHING_WRONG
