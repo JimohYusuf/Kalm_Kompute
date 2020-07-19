@@ -861,8 +861,8 @@ def download_csv_file(cur, no_of_points, table_name):
 
         file = output.getvalue()  
 
-        with open(table_name + ".csv","wb") as fo: 
-            fo.write(output) 
+        with open(table_name + ".csv","w") as fo: 
+            fo.write(file) 
         
         # f = open(table_name + ".csv",'w') 
         # file = output.getvalue() 
