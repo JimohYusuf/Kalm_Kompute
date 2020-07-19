@@ -812,14 +812,17 @@ def download_any():
                 download_csv_file(cur,no_of_points,table)
 
             compression = zipfile.ZIP_STORED 
-            zf = zipfile.ZipFile("all_data.zip", mode="w")
+            zf = zipfile.ZipFile("all_data.zip", mode="w") 
             
             for table in all_tables: 
                 zf.write(table + ".csv",compress_type=compression) 
 
             zf.close() 
 
-            return Response(zf, 
+            with open("all_data.zip", 'rb') as f: 
+                data = f.readlines() 
+
+            return Response(data, 
             mimetype='application/zip',
             headers={'Content-Disposition':'attachment;filename=zones.zip'}) 
                 
