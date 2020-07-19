@@ -794,44 +794,47 @@ def getAnyData(cursor_object, table_name, no_of_pnts):
 @server.route('/download_any', methods=['POST', 'GET'])  
 def download_any(): 
     global allsensors
-    if request.form:
-        init_values     = request.form 
-        table_name      = init_values['table_name'] 
-        no_of_points    = int(init_values['points'])
+    try:
+        if request.form:
+            init_values     = request.form 
+            table_name      = init_values['table_name'] 
+            no_of_points    = int(init_values['points'])
 
-        cur = dbConn.connection.cursor() 
+            cur = dbConn.connection.cursor() 
 
-        print (table_name) 
+            print (table_name) 
 
-        if str(table_name) == "all":
-            all_tables = getSensorNames(cur) 
+            if str(table_name) == "all":
+                all_tables = getSensorNames(cur) 
 
-            
-            print(all_tables) 
-            for table in all_tables: 
-                download_csv_file(cur,no_of_points,table)
-
-            compression = zipfile.ZIP_STORED 
-            zf = zipfile.ZipFile("all_data.zip", mode="w") 
-            
-            for table in all_tables: 
-                zf.write(table + ".csv",compress_type=compression) 
-
-            zf.close() 
-
-            with open("all_data.zip", 'rb') as f: 
-                data = f.readlines() 
-
-            return Response(data, 
-            mimetype='application/zip',
-            headers={'Content-Disposition':'attachment;filename=zones.zip'}) 
                 
-          
+                print(all_tables) 
+                for table in all_tables: 
+                    download_csv_file(cur,no_of_points,table)
 
-            
-        else:
-            csv_data = download_csv_file(cur,no_of_points,table_name)
-            return csv_data 
+                compression = zipfile.ZIP_STORED 
+                zf = zipfile.ZipFile("all_data.zip", mode="w") 
+                
+                for table in all_tables: 
+                    zf.write(table + ".csv",compress_type=compression) 
+
+                zf.close() 
+
+                with open("all_data.zip", 'rb') as f: 
+                    data = f.readlines() 
+
+                return Response(data, 
+                mimetype='application/zip',
+                headers={'Content-Disposition':'attachment;filename=all_data.zip'})  
+                    
+                
+            else:
+                csv_data = download_csv_file(cur,no_of_points,table_name)
+                return csv_data 
+
+    except Exception as e:
+        print(e)
+        return SOMETHING_WRONG
 
     return SUCCESS    
 
@@ -874,13 +877,7 @@ def download_csv_file(cur, no_of_points, table_name):
         with open(table_name + ".csv","w") as fo: 
             fo.write(file) 
         
-        # f = open(table_name + ".csv",'w') 
-        # file = output.getvalue() 
-        # f.write(file) #Give your csv text here.
-        # ## Python will convert \n to os.linesep
-        # f.close() 
-        
-        # return Response(output, mimetype="text/csv", headers={"Content-Disposition":"attachment;filename=" + table_name + "_data.csv"}) 
+        return Response(output, mimetype="text/csv", headers={"Content-Disposition":"attachment;filename=" + table_name + "_data.csv"}) 
     except Exception as e:
         print(e)
         return SOMETHING_WRONG
