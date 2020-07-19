@@ -815,7 +815,7 @@ def download_any():
             zf = zipfile.ZipFile("all_data.zip", mode="w")
             
             for file in data_dict:
-                zf.write(file.headers.filename,compress_type=compression) 
+                zf.write(file.getvalue(),compress_type=compression) 
             
             return zf
         else:
@@ -857,7 +857,8 @@ def download_csv_file(cur, no_of_points, table_name):
         print("here")
         
         output.seek(0)
-        return Response(output, mimetype="text/csv", headers={"Content-Disposition":"attachment;filename=" + table_name + "_data.csv"}) 
+        return output 
+        # return Response(output, mimetype="text/csv", headers={"Content-Disposition":"attachment;filename=" + table_name + "_data.csv"}) 
     except Exception as e:
         print(e)
         return SOMETHING_WRONG
