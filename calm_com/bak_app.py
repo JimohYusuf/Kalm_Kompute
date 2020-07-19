@@ -811,7 +811,7 @@ def download_any():
             for table in all_tables: 
                 download_csv_file(cur,no_of_points,table)
 
-            compression = zipfile.ZIP_DEFLATED
+            compression = zipfile.ZIP_STORED 
             zf = zipfile.ZipFile("all_data.zip", mode="w")
             
             for table in all_tables: 
