@@ -810,19 +810,21 @@ def download_any():
             print(all_tables) 
             for table in all_tables: 
                 download_csv_file(cur,no_of_points,table)
-                
 
-                
             compression = zipfile.ZIP_DEFLATED
             zf = zipfile.ZipFile("all_data.zip", mode="w")
             
             for table in all_tables: 
                 zf.write(table + ".csv",compress_type=compression) 
-            
-            # create file in memory
-            zip_content = io.BytesIO(zf) 
-            # send it to client - it needs `as_attachment` to change name with `attachment_filename`
-            return send_file(zip_content, mimetype='application/zip', as_attachment=True, attachment_filename='archive.zip') 
+
+                
+
+            return Response(zf,
+            mimetype='application/zip',
+            headers={'Content-Disposition':'attachment;filename=zones.zip'}) 
+                
+          
+
             
         else:
             csv_data = download_csv_file(cur,no_of_points,table_name)
