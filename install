@@ -1,94 +1,94 @@
 #!/bin/bash 
 
-# sudo apt update && sudo apt upgrade -y
+sudo apt update && sudo apt upgrade -y
 
-# wifi_name=$(zenity --entry --title="WiFi Name" --text="Enter the WiFi Name, make sure the computer is connected to that WiFi in the settings" 2> "/dev/null")
-# wifi_key=$(zenity --entry --title="Enter WiFi Password" --text="Enter WiFi Password" 2> "/dev/null")
-# zenity --info --title="WiFi name" --text="WiFi name in use.\n\n $wifi_name" 2> "/dev/null"
+wifi_name=$(zenity --entry --title="WiFi Name" --text="Enter the WiFi Name, make sure the computer is connected to that WiFi in the settings" 2> "/dev/null")
+wifi_key=$(zenity --entry --title="Enter WiFi Password" --text="Enter WiFi Password" 2> "/dev/null")
+zenity --info --title="WiFi name" --text="WiFi name in use.\n\n $wifi_name" 2> "/dev/null"
 
 ip_address=$(zenity  --list  --text "Choose your IP address" --radiolist  --column "Pick" --column "IP address" TRUE $(hostname -I | cut -f1 -d' ') FALSE $(hostname -I | cut -f2 -d' ') FALSE $(hostname -I | cut -f3 -d' ') 2> "/dev/null")
-# zenity --info --title="IP address" --text="Server IP address in use.\n\n "$ip_address"" 2> "/dev/null"
+zenity --info --title="IP address" --text="Server IP address in use.\n\n "$ip_address"" 2> "/dev/null"
 
-# project_id=$(zenity --entry --title="DialogFLow Project ID" --text="Enter the DialogFlow Project ID.\n\n Find it in Project settings of the associated project in the Actions console or in DialogFlow." 2> "/dev/null")
-# device_id=$(zenity --entry --title="Device ID" --text="Enter the Device ID.\n\n Find it in Project settings of the associated project in the Actions console." 2> "/dev/null")
-# model_id=$(zenity --entry --title="Model ID" --text="Enter the Model ID.\n\n Find it in Develop tab, Device registration on the left menu of the associated project in the Actions console." 2> "/dev/null")
+project_id=$(zenity --entry --title="DialogFLow Project ID" --text="Enter the DialogFlow Project ID.\n\n Find it in Project settings of the associated project in the Actions console or in DialogFlow." 2> "/dev/null")
+device_id=$(zenity --entry --title="Device ID" --text="Enter the Device ID.\n\n Find it in Project settings of the associated project in the Actions console." 2> "/dev/null")
+model_id=$(zenity --entry --title="Model ID" --text="Enter the Model ID.\n\n Find it in Develop tab, Device registration on the left menu of the associated project in the Actions console." 2> "/dev/null")
 
-# wget http://downloads.libelium.com/waspmote-pro-ide-v06.19-linux64.zip
-# unzip waspmote-pro-ide-v06.19-linux64.zip -d wasp1
-# sudo ./wasp1/install.sh
+wget http://downloads.libelium.com/waspmote-pro-ide-v06.19-linux64.zip
+unzip waspmote-pro-ide-v06.19-linux64.zip -d wasp1
+sudo ./wasp1/install.sh
 
-# update-alternatives --remove python /usr/bin/python2
-# sudo update-alternatives --remove python /usr/bin/python2
-# sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
+update-alternatives --remove python /usr/bin/python2
+sudo update-alternatives --remove python /usr/bin/python2
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 
-# sudo apt install mysql-server -y
+sudo apt install mysql-server -y
 
-# mysql -uroot -proot -e "CREATE DATABASE calm_computing;"
+mysql -uroot -proot -e "CREATE DATABASE calm_computing;"
 
-# mysql -uroot -proot -e "USE calm_computing;"
+mysql -uroot -proot -e "USE calm_computing;"
 
-# mysql -uroot -proot -e "CREATE TABLE calm_computing.libelium_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), temperature varchar(30), pressure varchar(30), humidity varchar(30), lux varchar(30), lumen varchar(30), primary key(id), UNIQUE(date, time));"
+mysql -uroot -proot -e "CREATE TABLE calm_computing.libelium_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), temperature varchar(30), pressure varchar(30), humidity varchar(30), lux varchar(30), lumen varchar(30), primary key(id), UNIQUE(date, time));"
 
-# mysql -uroot -proot -e "CREATE TABLE calm_computing.libelium_2(id int AUTO_INCREMENT, date varchar(30), time varchar(30), CO varchar(30), temperature varchar(30), pressure varchar(30), humidity varchar(30), primary key(id), UNIQUE(date, time));"
+mysql -uroot -proot -e "CREATE TABLE calm_computing.libelium_2(id int AUTO_INCREMENT, date varchar(30), time varchar(30), CO varchar(30), temperature varchar(30), pressure varchar(30), humidity varchar(30), primary key(id), UNIQUE(date, time));"
 
-# mysql -uroot -proot -e "CREATE TABLE calm_computing.watch_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), heart_rate varchar(30), primary key(id), UNIQUE(date, time));"
+mysql -uroot -proot -e "CREATE TABLE calm_computing.watch_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), heart_rate varchar(30), primary key(id), UNIQUE(date, time));"
 
-# mysql -uroot -proot -e "CREATE TABLE calm_computing.phone_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), device_state varchar(30), call_state varchar(30), primary key(id), UNIQUE(date, time));"
+mysql -uroot -proot -e "CREATE TABLE calm_computing.phone_1(id int AUTO_INCREMENT, date varchar(30), time varchar(30), device_state varchar(30), call_state varchar(30), primary key(id), UNIQUE(date, time));"
 
-# mysql -uroot -proot -e "CREATE TABLE calm_computing.tables_info(id int AUTO_INCREMENT, sensor_name varchar(100), column_no int, column_names varchar(1024), display_all varchar(200), display_rt varchar(200), primary key(id), UNIQUE(sensor_name));"
+mysql -uroot -proot -e "CREATE TABLE calm_computing.tables_info(id int AUTO_INCREMENT, sensor_name varchar(100), column_no int, column_names varchar(1024), display_all varchar(200), display_rt varchar(200), primary key(id), UNIQUE(sensor_name));"
 
-# mysql -uroot -proot -e "INSERT INTO calm_computing.tables_info (sensor_name, column_no, column_names, display_all, display_rt) VALUES ('libelium_1', 5, 'temperature,pressure,humidity,lux,lumen', 'libelium_1 (last 3000 datapoints)', 'libelium_1 (real-time)')"
+mysql -uroot -proot -e "INSERT INTO calm_computing.tables_info (sensor_name, column_no, column_names, display_all, display_rt) VALUES ('libelium_1', 5, 'temperature,pressure,humidity,lux,lumen', 'libelium_1 (last 3000 datapoints)', 'libelium_1 (real-time)')"
 
-# mysql -uroot -proot -e "INSERT INTO calm_computing.tables_info (sensor_name, column_no, column_names, display_all, display_rt) VALUES ('libelium_2', 4, 'CO,temperature,pressure,humidity', 'libelium_2 (last 3000 datapoints)', 'libelium_2 (real-time)')"
+mysql -uroot -proot -e "INSERT INTO calm_computing.tables_info (sensor_name, column_no, column_names, display_all, display_rt) VALUES ('libelium_2', 4, 'CO,temperature,pressure,humidity', 'libelium_2 (last 3000 datapoints)', 'libelium_2 (real-time)')"
 
-# mysql -uroot -proot -e "INSERT INTO calm_computing.tables_info (sensor_name, column_no, column_names, display_all, display_rt) VALUES ('watch_1', 1, 'heart_rate', 'watch_1 (last 3000 datapoints)', 'watch_1 (real-time)')"
+mysql -uroot -proot -e "INSERT INTO calm_computing.tables_info (sensor_name, column_no, column_names, display_all, display_rt) VALUES ('watch_1', 1, 'heart_rate', 'watch_1 (last 3000 datapoints)', 'watch_1 (real-time)')"
 
-# mysql -uroot -proot -e "INSERT INTO calm_computing.tables_info (sensor_name, column_no, column_names, display_all, display_rt) VALUES ('phone_1', 2, 'device_state,call_state', 'phone_1 (last 3000 datapoints)', 'phone_1 (real-time)')"
+mysql -uroot -proot -e "INSERT INTO calm_computing.tables_info (sensor_name, column_no, column_names, display_all, display_rt) VALUES ('phone_1', 2, 'device_state,call_state', 'phone_1 (last 3000 datapoints)', 'phone_1 (real-time)')"
 
 
-# sudo apt-get install python3-dev python3-venv -y
-# python3 -m venv ~/env
+sudo apt-get install python3-dev python3-venv -y
+python3 -m venv ~/env
 
-# source ~/env/bin/activate
+source ~/env/bin/activate
 
-# pip3 install --upgrade pip setuptools wheel
-# pip3 install wheel
-# sudo apt install authbind -y
-# sudo apt-get install build-essential libssl-dev libffi-dev python3-dev -y
-# sudo apt-get install libmysqlclient-dev -y
-# sudo apt-get install portaudio19-dev libffi-dev libssl-dev -y
-# pip install pyyaml
+pip3 install --upgrade pip setuptools wheel
+pip3 install wheel
+sudo apt install authbind -y
+sudo apt-get install build-essential libssl-dev libffi-dev python3-dev -y
+sudo apt-get install libmysqlclient-dev -y
+sudo apt-get install portaudio19-dev libffi-dev libssl-dev -y
+pip install pyyaml
 
-# python -m pip install --upgrade google-assistant-sdk[samples]
-# python -m pip install --upgrade google-auth-oauthlib[tool]
+python -m pip install --upgrade google-assistant-sdk[samples]
+python -m pip install --upgrade google-auth-oauthlib[tool]
 
-# pip3 install flask-mysqldb
-# pip3 install mysql-connector-python-rf
-# sudo apt-get install python-mysqldb -y
-# pip install flask-assistant
-# pip3 install pygal 
-# cd mysql-connector-python-2.1.6/
-# sudo python3 setup.py install
-# cd ..
+pip3 install flask-mysqldb
+pip3 install mysql-connector-python-rf
+sudo apt-get install python-mysqldb -y
+pip install flask-assistant
+pip3 install pygal 
+cd mysql-connector-python-2.1.6/
+sudo python3 setup.py install
+cd ..
 
-# pip3 install PyMySQL
-# pip install apscheduler
+pip3 install PyMySQL
+pip install apscheduler
 
-# sudo touch /etc/authbind/byport/80
-# sudo chmod 777 /etc/authbind/byport/80
+sudo touch /etc/authbind/byport/80
+sudo chmod 777 /etc/authbind/byport/80
 
-# file_name=$(zenity --file-selection --title="Select the client secrets JSON file downloaded in Step 14 of the Installation manual" 2> "/dev/null")
+file_name=$(zenity --file-selection --title="Select the client secrets JSON file downloaded in Step 14 of the Installation manual" 2> "/dev/null")
 
-# case $? in
-#          0)
-#                 zenity --info --title="File name" --text="File name in use.\n\n $file_name" 2> "/dev/null";;
-#          1)
-#                 zenity --info --title="No file selected" --text="No file selected.\n" 2> "/dev/null";;
-#         -1)
-#                 zenity --info --title="Unexpected error occured" --text="Unexpected error occured.\n" 2> "/dev/null";;
-# esac
+case $? in
+         0)
+                zenity --info --title="File name" --text="File name in use.\n\n $file_name" 2> "/dev/null";;
+         1)
+                zenity --info --title="No file selected" --text="No file selected.\n" 2> "/dev/null";;
+        -1)
+                zenity --info --title="Unexpected error occured" --text="Unexpected error occured.\n" 2> "/dev/null";;
+esac
 
-# google-oauthlib-tool --scope https://www.googleapis.com/auth/assistant-sdk-prototype --save --headless --client-secrets "$file_name"
+google-oauthlib-tool --scope https://www.googleapis.com/auth/assistant-sdk-prototype --save --headless --client-secrets "$file_name"
 
 sed -e "s/replace_the_model_id/$model_id/g" -e "s/replace_the_device_id/$device_id/g" ./calm_com/bak_textinput.py > ./calm_com/textinput.py 2> "/dev/null"
 
@@ -111,9 +111,9 @@ sed "s/replace_the_ip_address/$ip_address/g" ./2/WIFI_PRO_02_join/bak_WIFI_PRO_0
 sed "s/replace_the_ip_address/$ip_address/g" ./1/WIFI_PRO_05_ping/bak_WIFI_PRO_05_ping/bak_WIFI_PRO_05_ping.pde > ./1/WIFI_PRO_05_ping/WIFI_PRO_05_ping.pde 2> "/dev/null"
 sed "s/replace_the_ip_address/$ip_address/g" ./2/WIFI_PRO_05_ping/bak_WIFI_PRO_05_ping/bak_WIFI_PRO_05_ping.pde > ./2/WIFI_PRO_05_ping/WIFI_PRO_05_ping.pde 2> "/dev/null"
 
-# zenity --info --title="Ngrok setup" --text="Use this link for the Ngrok part of the setup\n\n ./ngrok http http://$ip_address:80" 2> "/dev/null"
+zenity --info --title="Ngrok setup" --text="Use this link for the Ngrok part of the setup\n\n ./ngrok http http://$ip_address:80" 2> "/dev/null"
 
-# zenity --info --title="Congratulations" --text="Use this link to access the home page\n\n http://$ip_address/home" 2> "/dev/null"
+zenity --info --title="Congratulations" --text="Use this link to access the home page\n\n http://$ip_address/home" 2> "/dev/null"
 
 # sudo update-alternatives --config python ### to change default python version back to python2, but why would you use python 2 if not for ROS 1
 
