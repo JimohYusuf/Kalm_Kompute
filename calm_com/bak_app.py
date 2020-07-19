@@ -817,9 +817,9 @@ def download_any():
             for table in all_tables: 
                 zf.write(table + ".csv",compress_type=compression) 
 
-                
+            zf.close() 
 
-            return Response(zf,
+            return Response(zf, 
             mimetype='application/zip',
             headers={'Content-Disposition':'attachment;filename=zones.zip'}) 
                 
