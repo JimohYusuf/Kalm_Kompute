@@ -801,7 +801,7 @@ def download_any():
         cur = dbConn.connection.cursor() 
 
         print (table_name) 
-        
+
         if str(table_name) == "all":
             all_tables = getSensorNames(cur) 
 
@@ -843,7 +843,8 @@ def download_csv_file(cur, no_of_points, table_name):
                 cnt += 1 
             writer.writerow(line)
         
-
+        print("here")
+        
         output.seek(0)
         return Response(output, mimetype="text/csv", headers={"Content-Disposition":"attachment;filename=" + table_name + "_data.csv"}) 
     except Exception as e:
