@@ -809,7 +809,7 @@ def download_any():
             print(all_tables) 
             for table in all_tables: 
                 data_dict.append(download_csv_file(cur,no_of_points,table)) 
-                return data_dict 
+                return tuple(data_dict) 
         else:
             csv_data = download_csv_file(cur,no_of_points,table_name)
             return csv_data 
