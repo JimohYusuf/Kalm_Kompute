@@ -810,14 +810,15 @@ def download_any():
             print(all_tables) 
             for table in all_tables: 
                 data_dict.append(download_csv_file(cur,no_of_points,table)) 
+
+                
+            # compression = zipfile.ZIP_DEFLATED
+            # zf = zipfile.ZipFile("all_data.zip", mode="w")
             
-            compression = zipfile.ZIP_DEFLATED
-            zf = zipfile.ZipFile("all_data.zip", mode="w")
+            # for file in data_dict:
+            #     zf.write(file.getvalue(),compress_type=compression) 
             
-            for file in data_dict:
-                zf.write(file.getvalue(),compress_type=compression) 
-            
-            return zf
+            # return zf
         else:
             csv_data = download_csv_file(cur,no_of_points,table_name)
             return csv_data 
@@ -857,7 +858,12 @@ def download_csv_file(cur, no_of_points, table_name):
         print("here")
         
         output.seek(0)
-        return output 
+        
+        f = open(table_name + ".csv",'w') 
+        f.write(output) #Give your csv text here.
+        ## Python will convert \n to os.linesep
+        f.close() 
+
         # return Response(output, mimetype="text/csv", headers={"Content-Disposition":"attachment;filename=" + table_name + "_data.csv"}) 
     except Exception as e:
         print(e)
