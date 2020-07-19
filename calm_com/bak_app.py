@@ -13,6 +13,7 @@ import pymysql
 import io
 import csv 
 import zipfile 
+import os
 
 from pygal.style import Style 
 from datetime import date
@@ -823,6 +824,11 @@ def download_any():
                 with open("all_data.zip", 'rb') as f: 
                     data = f.readlines() 
 
+                os.remove("all_data.zip") 
+                for table in all_tables: 
+                    os.remove(table + ".csv")
+
+
                 return Response(data, 
                 mimetype='application/zip',
                 headers={'Content-Disposition':'attachment;filename=all_data.zip'})  
@@ -867,15 +873,14 @@ def download_csv_file(cur, no_of_points, table_name):
                 line.append(row[cnt])
                 cnt += 1 
             writer.writerow(line)
-        
-        print("here")
-        
+
         output.seek(0)
 
         file = output.getvalue()  
 
-        with open(table_name + ".csv","w") as fo: 
-            fo.write(file) 
+        if table_name == "all":
+            with open(table_name + ".csv","w") as fo: 
+                fo.write(file) 
         
         return Response(output, mimetype="text/csv", headers={"Content-Disposition":"attachment;filename=" + table_name + "_data.csv"}) 
     except Exception as e:
