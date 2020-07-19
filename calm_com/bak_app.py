@@ -860,7 +860,8 @@ def download_csv_file(cur, no_of_points, table_name):
         output.seek(0)
         
         f = open(table_name + ".csv",'w') 
-        f.write(output) #Give your csv text here.
+        file = output.getvalue() 
+        f.write(file) #Give your csv text here.
         ## Python will convert \n to os.linesep
         f.close() 
 
