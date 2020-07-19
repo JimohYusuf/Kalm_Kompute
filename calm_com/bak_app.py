@@ -857,7 +857,7 @@ def download_csv_file(cur, no_of_points, table_name):
         print("here")
         
         output.seek(0)
-        Response(output, mimetype="text/csv", headers={"Content-Disposition":"attachment;filename=" + table_name + "_data.csv"}) 
+        return Response(output, mimetype="text/csv", headers={"Content-Disposition":"attachment;filename=" + table_name + "_data.csv"}) 
     except Exception as e:
         print(e)
         return SOMETHING_WRONG
