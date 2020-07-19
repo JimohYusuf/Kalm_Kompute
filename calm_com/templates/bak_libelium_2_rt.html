@@ -29,7 +29,7 @@ window.onload = function() {
 	$.getJSON("/l2_data", function(data) {  
 
         $.each(data[0], function(key, value){
-			if(co_dataPoints_uniq.includes(value[0])){
+			if(!(co_dataPoints_uniq.includes(value[0]))){
 				co_dataPoints.push({label: value[0], y: parseFloat(value[1])}); 
 				co_dataPoints_uniq.push(value[0]); 
 			}
