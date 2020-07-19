@@ -794,15 +794,18 @@ def getAnyData(cursor_object, table_name, no_of_pnts):
 def download_any(): 
     global allsensors
     if request.form:
-        init_values = request.form 
-        table_name   = init_values['table_name'] 
-        no_of_points = int(init_values['points'])
+        init_values     = request.form 
+        table_name      = init_values['table_name'] 
+        no_of_points    = int(init_values['points'])
 
         cur = dbConn.connection.cursor() 
 
-        if table_name == "all":
+        print (table_name) 
+        
+        if str(table_name) == "all":
             all_tables = getSensorNames(cur) 
 
+            print(all_tables) 
             for table in all_tables:
                 download_csv_file(cur,no_of_points,table)
         else:
