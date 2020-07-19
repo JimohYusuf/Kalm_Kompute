@@ -214,6 +214,11 @@ def sensor_manager(sensorVal):
             speech = "The call state is %s" % allsensors["call_state"] 
         else:
             speech = "Phone call state not available"
+    elif sensorVal == "heart rate":
+        if "heart_rate" in allsensors:
+            speech = "The heart rate value is %s beats per minute" % allsensors["heart_rate"] 
+        else:
+            speech = "Heart rate value is not available" 
     else:
         speech = "Please specify a sensor"
 
@@ -500,7 +505,9 @@ def libelium_2():
 
 
 ################################################################################################################################
-#################################### NEW SENSORS ###############################################################################
+################################################################################################################################
+################################## NEW SENSORS #################################################################################
+################################################################################################################################
 ################################################################################################################################
 
 @server.route('/user_defined/<usensor_name>', methods=['POST', 'GET']) 
@@ -509,7 +516,7 @@ def new_sensor(usensor_name):
     if request.method == 'POST':
         sensor_data = request.values
 
-        sensor_name = usensor_name
+        sensor_name = usensor_name 
 
         registered_sensors = getSensorNames(cur) 
 
@@ -525,7 +532,7 @@ def new_sensor(usensor_name):
             
             sensor_data_tuple   = tuple(sensor_data_values)
 
-            ########################
+            ############################
             sql_insert_statmnt  = "INSERT INTO " + sensor_name + " (date, time"
 
             for name in column_names_list:
@@ -648,7 +655,7 @@ def get_sensors():
     return all_sensors_json 
 
 
-############################################################
+############################################################################################
 def getNoOfColumns(cursor_object, table_name):
     try:
         cursor_object.execute("SELECT * FROM tables_info WHERE sensor_name=" + "\"" + table_name + "\"")  
@@ -673,7 +680,7 @@ def getNoOfColumns(cursor_object, table_name):
 
     return column_no 
 
-###############################################################
+############################################################################################
 def getColumnNames(cursor_object, table_name):
     try:
         cursor_object.execute("SELECT * FROM tables_info WHERE sensor_name=" + "\"" + table_name + "\"")  
@@ -698,7 +705,7 @@ def getColumnNames(cursor_object, table_name):
 
     return column_names
 
-##################################################################
+############################################################################################
 def getSensorNames(cursor_object):
     try:
         cursor_object.execute("SELECT * FROM tables_info")  
@@ -742,8 +749,7 @@ def data_acquire(usensor,points):
     return json_data 
 
 
-
-##################################################################
+############################################################################################
 def getAnyData(cursor_object, table_name, no_of_pnts): 
         try:
             if no_of_pnts == 0:
@@ -783,9 +789,76 @@ def getAnyData(cursor_object, table_name, no_of_pnts):
 
         return data 
 
+############################################################################################
+@server.route('/download_any', methods=['POST', 'GET'])  
+def download_any(): 
+    global allsensors
+    if request.form:
+        init_values = request.form 
+        table_name   = init_values['table_name'] 
+        no_of_points = int(init_values['points'])
+
+        cur = dbConn.connection.cursor() 
+
+        if table_name == "all":
+            all_tables = getSensorNames(cur) 
+
+            for table in all_tables:
+                download_csv_file(cur,no_of_points,table)
+        else:
+            download_csv_file(cur,no_of_points,table_name)
+
+    return SUCCESS    
+
+############################################################################################
+def download_csv_file(cur, no_of_points, table_name): 
+    try:  
+        if no_of_points > 0: 
+            cur.execute("SELECT * FROM " + table_name + " ORDER BY id DESC LIMIT " + str(no_of_points))  
+        else:
+            cur.execute("SELECT * FROM "+ table_name) 
+
+        result = cur.fetchall()
+
+        output = io.StringIO()
+        writer = csv.writer(output) 
+
+        line = ['id', 'date', 'time']
+
+        column_names = getColumnNames(cur,table_name).split(',')
+
+        for name in column_names:
+            line.append(name)  
+
+        writer.writerow(line)
+
+        for row in result: 
+            line = [str(row[0]) , row[1] , row[2]] 
+            cnt = 3
+            for name in column_names:
+                line.append(row[cnt])
+                cnt += 1 
+            writer.writerow(line)
+        
+
+        output.seek(0)
+        return Response(output, mimetype="text/csv", headers={"Content-Disposition":"attachment;filename=" + table_name + "_data.csv"}) 
+    except Exception as e:
+        print(e)
+        return SOMETHING_WRONG
+
+    return SUCCESS 
+
+############################################################################################
+@server.route('/download_csv', methods=['POST', 'GET'])  
+def download_csv():
+    return render_template('download_any.html')  
+
 
 ################################################################################################################################
+################################################################################################################################
 ################################## NEW SENSORS END #############################################################################
+################################################################################################################################
 ################################################################################################################################
 
 
@@ -970,59 +1043,6 @@ def download_data_2():
         print(e)  
 
     return 'SUCCESS' 
-
-
-@server.route('/download_any', methods=['POST', 'GET'])  
-def download_any(): 
-    global allsensors
-    if request.form:
-        init_values = request.form 
-        table_name   = init_values['table_name'] 
-        no_of_points = int(init_values['points'])
-
-        try: 
-            cur = dbConn.connection.cursor() 
-        
-            if no_of_points > 0: 
-                cur.execute("SELECT * FROM " + table_name + " ORDER BY id DESC LIMIT " + str(no_of_points))  
-            else:
-                cur.execute("SELECT * FROM "+ table_name) 
-
-            result = cur.fetchall()
-
-            output = io.StringIO()
-            writer = csv.writer(output) 
-
-            line = ['id', 'date', 'time']
-
-            column_names = getColumnNames(cur,table_name).split(',')
-
-            for name in column_names:
-                line.append(name)  
-
-            writer.writerow(line)
-
-            for row in result: 
-                line = [str(row[0]) , row[1] , row[2]] 
-                cnt = 3
-                for name in column_names:
-                    line.append(row[cnt])
-                    cnt += 1 
-                writer.writerow(line)
-            
-
-            output.seek(0)
-            return Response(output, mimetype="text/csv", headers={"Content-Disposition":"attachment;filename=" + table_name + "_data.csv"}) 
-        except Exception as e:
-            print(e)
-            return SOMETHING_WRONG
-
-        return SUCCESS
-
-@server.route('/download_csv', methods=['POST', 'GET'])  
-def download_csv():
-    return render_template('download_any.html')  
-
 
 ########################################## GET ALL DATA IN DATABASE ##################################################
 def getAllData(cursor_object, table_name):
