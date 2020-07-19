@@ -815,7 +815,7 @@ def download_any():
             zf = zipfile.ZipFile("all_data.zip", mode="w")
             
             for file in data_dict:
-                fille = file.read().decode('utf-8')
+                fille = file.text() 
                 zf.write(fille,compress_type=compression) 
             
             return zf
