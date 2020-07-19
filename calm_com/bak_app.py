@@ -12,6 +12,7 @@ import json
 import pymysql 
 import io
 import csv 
+import zipfile 
 
 from pygal.style import Style 
 from datetime import date
@@ -805,14 +806,21 @@ def download_any():
         if str(table_name) == "all":
             all_tables = getSensorNames(cur) 
 
-            
+            data_dict = []
             print(all_tables) 
-            
             for table in all_tables: 
-                download_csv_file(cur,no_of_points,table) 
-        else:
-            download_csv_file(cur,no_of_points,table_name)
+                data_dict.append(download_csv_file(cur,no_of_points,table)) 
             
+            compression = zipfile.ZIP_DEFLATED
+            zf = zipfile.ZipFile("all_data.zip", mode="w")
+            
+            for file in data_dict:
+                zf.write(file,compress_type=compression) 
+            
+            return zf
+        else:
+            csv_data = download_csv_file(cur,no_of_points,table_name)
+            return csv_data 
 
     return SUCCESS    
 
