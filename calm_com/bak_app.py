@@ -1,5 +1,5 @@
 ######################################### IMPORTS ##########################################################################################################################################################
-from flask import Flask, render_template, request, make_response, Response, jsonify 
+from flask import Flask, render_template, request, make_response, Response, jsonify, send_file 
 from flask_assistant import Assistant, ask, tell
 from flask_mysqldb import MySQL
 import mysql.connector 
@@ -819,7 +819,11 @@ def download_any():
             for table in all_tables: 
                 zf.write(table + ".csv",compress_type=compression) 
             
-            return zf 
+            # create file in memory
+            zip_content = io.BytesIO(zf) 
+            # send it to client - it needs `as_attachment` to change name with `attachment_filename`
+            return send_file(zip_content, mimetype='application/zip', as_attachment=True, attachment_filename='archive.zip') 
+            
         else:
             csv_data = download_csv_file(cur,no_of_points,table_name)
             return csv_data 
