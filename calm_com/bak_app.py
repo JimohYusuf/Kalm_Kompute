@@ -878,9 +878,9 @@ def download_csv_file(cur, no_of_points, table_name):
 
         file = output.getvalue()  
 
-        if table_name == "all":
-            with open(table_name + ".csv","w") as fo: 
-                fo.write(file) 
+        
+        with open(table_name + ".csv","w") as fo: 
+            fo.write(file) 
         
         return Response(output, mimetype="text/csv", headers={"Content-Disposition":"attachment;filename=" + table_name + "_data.csv"}) 
     except Exception as e:
