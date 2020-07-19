@@ -805,11 +805,14 @@ def download_any():
         if str(table_name) == "all":
             all_tables = getSensorNames(cur) 
 
+            data_dict = []
             print(all_tables) 
-            for table in all_tables:
-                download_csv_file(cur,no_of_points,table)
+            for table in all_tables: 
+                data_dict.append(download_csv_file(cur,no_of_points,table)) 
+                return data_dict 
         else:
-            download_csv_file(cur,no_of_points,table_name)
+            csv_data = download_csv_file(cur,no_of_points,table_name)
+            return csv_data 
 
     return SUCCESS    
 
