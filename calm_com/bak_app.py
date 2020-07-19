@@ -858,13 +858,18 @@ def download_csv_file(cur, no_of_points, table_name):
         print("here")
         
         output.seek(0)
-        
-        f = open(table_name + ".csv",'w') 
-        file = output.getvalue() 
-        f.write(file) #Give your csv text here.
-        ## Python will convert \n to os.linesep
-        f.close() 
 
+        file = output.getvalue()  
+
+        with open(table_name + ".csv","wb") as fo: 
+            fo.write(file) 
+        
+        # f = open(table_name + ".csv",'w') 
+        # file = output.getvalue() 
+        # f.write(file) #Give your csv text here.
+        # ## Python will convert \n to os.linesep
+        # f.close() 
+        
         # return Response(output, mimetype="text/csv", headers={"Content-Disposition":"attachment;filename=" + table_name + "_data.csv"}) 
     except Exception as e:
         print(e)
