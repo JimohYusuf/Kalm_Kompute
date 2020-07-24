@@ -79,6 +79,7 @@ sudo chmod 777 /etc/authbind/byport/80
 
 file_name=$(zenity --file-selection --title="Select the client secrets JSON file downloaded in Step 14 of the Installation manual" 2> "/dev/null")
 
+
 case $? in
          0)
                 zenity --info --title="File name" --text="File name in use.\n\n $file_name" 2> "/dev/null";;
@@ -87,6 +88,7 @@ case $? in
         -1)
                 zenity --info --title="Unexpected error occured" --text="Unexpected error occured.\n" 2> "/dev/null";;
 esac
+
 
 google-oauthlib-tool --scope https://www.googleapis.com/auth/assistant-sdk-prototype --save --headless --client-secrets "$file_name"
 
