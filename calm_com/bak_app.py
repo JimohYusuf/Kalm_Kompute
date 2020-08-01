@@ -512,7 +512,7 @@ def libelium_2():
 ################################################################################################################################
 ################################################################################################################################
 
-@server.route('/user_defined/<usensor_name>', methods=['POST', 'GET']) 
+@server.route('/new/<usensor_name>', methods=['POST', 'GET']) 
 def new_sensor(usensor_name):
     cur = dbConn.connection.cursor()  
     if request.method == 'POST':
