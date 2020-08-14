@@ -267,6 +267,9 @@ def phone_1():
             except mysql.connector.Error as err:
                 print(err)
                 return FAIL
+            except MySQLdb.IntegrityError as err:
+                print("Caught IntegrityError (possible duplicate)")
+                return SUCCESS
             except MySQLdb.Error as err: 
                 print(err) 
                 return FAIL  
@@ -310,6 +313,9 @@ def watch():
             except mysql.connector.Error as err:
                 print(err)
                 return FAIL
+            except MySQLdb.IntegrityError as err:
+                print("Caught IntegrityError (possible duplicate)")
+                return SUCCESS
             except MySQLdb.Error as err: 
                 print(err) 
                 return FAIL
@@ -367,6 +373,9 @@ def libelium_1():
         except mysql.connector.Error as err:
             print(err)
             return FAIL
+        except MySQLdb.IntegrityError as err:
+                print("Caught IntegrityError (possible duplicate)")
+                return SUCCESS
         except MySQLdb.Error as err: 
             print(err) 
             return FAIL 
@@ -465,6 +474,9 @@ def libelium_2():
         except mysql.connector.Error as err:
             print(err)
             return FAIL
+        except MySQLdb.IntegrityError as err:
+                print("Caught IntegrityError (possible duplicate)")
+                return SUCCESS
         except MySQLdb.Error as err: 
             print(err) 
             return FAIL  
@@ -563,6 +575,9 @@ def new_sensor(usensor_name):
             except mysql.connector.Error as err:
                 print(err)
                 return FAIL
+            except MySQLdb.IntegrityError as err:
+                print("Caught IntegrityError (possible duplicate)")
+                return SUCCESS
             except MySQLdb.Error as err: 
                 print(err) 
                 return FAIL  
@@ -622,6 +637,9 @@ def add_sensor():
         except mysql.connector.Error as err:
             print(err)
             return SOMETHING_WRONG
+        except MySQLdb.IntegrityError as err:
+            print("Caught IntegrityError (possible duplicate)")
+            return SUCCESS
         except MySQLdb.Error as err: 
             print(err) 
             return SOMETHING_WRONG  
@@ -673,6 +691,9 @@ def getNoOfColumns(cursor_object, table_name):
     except mysql.connector.Error as err:
         print(err)
         return FAIL
+    except MySQLdb.IntegrityError as err:
+        print("Caught IntegrityError (possible duplicate)")
+        return SUCCESS
     except MySQLdb.Error as err: 
         print(err) 
         return FAIL  
@@ -698,6 +719,9 @@ def getColumnNames(cursor_object, table_name):
     except mysql.connector.Error as err:
         print(err)
         return FAIL
+    except MySQLdb.IntegrityError as err:
+        print("Caught IntegrityError (possible duplicate)")
+        return SUCCESS
     except MySQLdb.Error as err: 
         print(err) 
         return FAIL  
@@ -723,6 +747,9 @@ def getSensorNames(cursor_object):
     except mysql.connector.Error as err:
         print(err)
         return FAIL
+    except MySQLdb.IntegrityError as err:
+        print("Caught IntegrityError (possible duplicate)")
+        return SUCCESS
     except MySQLdb.Error as err: 
         print(err) 
         return FAIL  
@@ -770,6 +797,9 @@ def getAnyData(cursor_object, table_name, no_of_pnts):
         except mysql.connector.Error as err:
             print(err)
             return SOMETHING_WRONG
+        except MySQLdb.IntegrityError as err:
+            print("Caught IntegrityError (possible duplicate)")
+            return SUCCESS
         except MySQLdb.Error as err: 
             print(err) 
             return SOMETHING_WRONG
@@ -1102,6 +1132,9 @@ def getAllData(cursor_object, table_name):
         except mysql.connector.Error as err:
             print(err)
             return FAIL
+        except MySQLdb.IntegrityError as err:
+            print("Caught IntegrityError (possible duplicate)")
+            return SUCCESS
         except MySQLdb.Error as err: 
             print(err) 
             return FAIL  
@@ -1136,6 +1169,9 @@ def getAllData(cursor_object, table_name):
         except mysql.connector.Error as err:
             print(err)
             return FAIL
+        except MySQLdb.IntegrityError as err:
+            print("Caught IntegrityError (possible duplicate)")
+            return SUCCESS
         except MySQLdb.Error as err: 
             print(err) 
             return FAIL  
@@ -1168,6 +1204,9 @@ def getAllData(cursor_object, table_name):
         except mysql.connector.Error as err:
             print(err)
             return FAIL
+        except MySQLdb.IntegrityError as err:
+            print("Caught IntegrityError (possible duplicate)")
+            return SUCCESS
         except MySQLdb.Error as err: 
             print(err) 
             return FAIL  
@@ -1198,6 +1237,9 @@ def getRealTimeData(cursor_object, table_name):
         except mysql.connector.Error as err:
             print(err)
             return FAIL
+        except MySQLdb.IntegrityError as err:
+            print("Caught IntegrityError (possible duplicate)")
+            return SUCCESS
         except MySQLdb.Error as err: 
             print(err) 
             return FAIL  
@@ -1232,6 +1274,9 @@ def getRealTimeData(cursor_object, table_name):
         except mysql.connector.Error as err:
             print(err)
             return FAIL
+        except MySQLdb.IntegrityError as err:
+            print("Caught IntegrityError (possible duplicate)")
+            return SUCCESS
         except MySQLdb.Error as err: 
             print(err) 
             return FAIL  
@@ -1264,6 +1309,9 @@ def getRealTimeData(cursor_object, table_name):
         except mysql.connector.Error as err:
             print(err)
             return FAIL
+        except MySQLdb.IntegrityError as err:
+            print("Caught IntegrityError (possible duplicate)")
+            return SUCCESS
         except MySQLdb.Error as err: 
             print(err) 
             return FAIL  
@@ -1295,6 +1343,9 @@ def getLatestData(cursor_object, table_name):
         except mysql.connector.Error as err:
             print(err)
             return FAIL
+        except MySQLdb.IntegrityError as err:
+            print("Caught IntegrityError (possible duplicate)")
+            return SUCCESS
         except MySQLdb.Error as err: 
             print(err) 
             return FAIL   
@@ -1328,6 +1379,9 @@ def getLatestData(cursor_object, table_name):
         except mysql.connector.Error as err:
             print(err)
             return FAIL
+        except MySQLdb.IntegrityError as err:
+            print("Caught IntegrityError (possible duplicate)")
+            return SUCCESS
         except MySQLdb.Error as err: 
             print(err) 
             return FAIL  
@@ -1360,6 +1414,9 @@ def getLatestData(cursor_object, table_name):
         except mysql.connector.Error as err:
             print(err)
             return FAIL
+        except MySQLdb.IntegrityError as err:
+            print("Caught IntegrityError (possible duplicate)")
+            return SUCCESS
         except MySQLdb.Error as err: 
             print(err) 
             return FAIL  
@@ -1391,6 +1448,9 @@ def getLatestData(cursor_object, table_name):
         except mysql.connector.Error as err:
             print(err)
             return FAIL
+        except MySQLdb.IntegrityError as err:
+            print("Caught IntegrityError (possible duplicate)")
+            return SUCCESS
         except MySQLdb.Error as err: 
             print(err) 
             return FAIL  
