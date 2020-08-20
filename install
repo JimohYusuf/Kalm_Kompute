@@ -2,6 +2,20 @@
 
 sudo apt update && sudo apt upgrade -y
 
+# In order to start recording the camera stream at the setup opf the server:
+# 1. Uncomment ONE of the two commented command lines below (first line preferred) if the camera's IP_ADDRESS is known apriori. 
+# 2. Make sure to replace SERVER_IP_ADDRESS in the just uncommented line to the IP address of the server before running the code
+# 3. Make sure that the camera has started streaming before running this code
+
+
+#gnome-terminal -x sh -c "ffmpeg -i rtsp://SERVER_IP_ADDRESS:8554/live?resolution=640x320 video-$(date +"%H-%M-%S-%m-%d-%y").mp4; bash" 
+#gnome-terminal -e "bash -c \"ffmpeg -i rtsp://SERVER_IP_ADDRESS:8554/live?resolution=640x320 video-$(date +"%H-%M-%S-%m-%d-%y").mp4; exec bash\""
+
+#Else
+# 1. Make sure the camera has started streaming
+# 2. Open a new terminal and enter the command (without the quotes): "ffmpeg -i rtsp://SERVER_IP_ADDRESS:8554/live?resolution=640x320 video-$(date +"%H-%M-%S-%m-%d-%y").mp4" 
+# 3. Make sure to replace SERVER_IP_ADDRESS in the command to the IP address of the server before running the code
+
 wifi_name=$(zenity --entry --title="WiFi Name" --text="Enter the WiFi Name, make sure the computer is connected to that WiFi in the settings" 2> "/dev/null")
 wifi_key=$(zenity --entry --title="Enter WiFi Password" --text="Enter WiFi Password" 2> "/dev/null")
 zenity --info --title="WiFi name" --text="WiFi name in use.\n\n $wifi_name" 2> "/dev/null"

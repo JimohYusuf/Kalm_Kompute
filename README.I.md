@@ -286,3 +286,131 @@ Let’s begin the installation
 *   **RINGING:** This indicates that the user has an incoming call that has not been picked up yet.
 
 *   **OUTGOING CALL:** This indicates that the user is making an outgoing call. 
+
+
+
+
+### SETTING UP AND OPERATING THE RICOH THETA V CAMERA**
+
+Streaming from the RICOH THETA V camera is done using the RTSP protocol. To enable streaming from the camera, a plugin that supports RTSP streaming must be installed and enabled on the RICOH THETA V. The following procedures should be taken to set up live video streaming from the camera.
+
+
+
+*   Download and install the RICOH THETA V desktop [application](https://support.theta360.com/en/download/) that allows installation of plugins on the RICOH THETA V. The software can be installed on Windows or Mac. 
+
+*   Connect the RICOH THETA V via its USB port to the computer.
+
+*   Download the THETA RTSP streaming plugin from [here](https://pluginstore.theta360.com/plugins/com.sciencearts.rtspstreaming/).
+
+*   On clicking install to install the plugin, it will be required to open the plugin using the RICOH THETA V desktop application installed earlier. Click open when prompted. 
+
+*   In the RICOH THETA V desktop application, go to File > Plug-in management.
+
+*   Ensure that the RICOH THETA V is connected to the computer via USB connection and click OK to continue.
+
+*   Select THETA RTSP streaming from the drop down menu and click OK. Now the plugin has been successfully installed.
+
+Next, the camera needs to be connected to the local network via the router. In order to do this, follow the following procedures:
+
+*   Disconnect the RICOH THETA V from the computer.
+
+*   Switch on the RICOH THETA V.
+
+*   Hold the Wi-Fi button for about 7 seconds to reset the Wi-Fi state. This sets up a Wi-Fi hotspot on the RICOH THETA V. Now, single click on the Wi-fi button.
+
+
+
+Now we have to connect to the RICOH THETA V using a smartphone. In order to enable the smartphone to connect to the RICOH THETA V follow the following procedure:
+
+*   Install RICOH THETA app from playstore. 
+
+*   Open the RICOH THETA app.
+
+*   Connect  the smartphone to the hotspot created by the RICOH THETA V camera.
+
+*   Enter the numeric number at the bottom of the RICOH THETA V camera when prompted for a password to connect to the hotspot. Do not include the alphabets. For example, if the alphanumeric characters at the bottom of the RICOH THETA V is YL00177224, enter 00177224 when prompted for the password.
+
+*   When connected, now go to the RICOH THETA app on the smartphone and click on **Settings** then **Wireless LAN client mode. **
+
+*   Click on **Access points settings**. 
+
+*   Click on the plus sign and enter the details for your network (i.e the SSID and password for your router). Click OK after entering the details and then go back to **Wireless LAN client mode.**
+
+*   Now click on **authentication settings** and enter a password which will be used to connect to the RICOH THETA later. This password can be anything. Just make sure to remember it. Let’s call this password **RICOH password** so that we can refer to it later. 
+
+*   Now after entering the password click “Specify a password” and then click CLOSE. 
+
+*   Now disconnect the smartphone from the RICOH THETA hotspot.
+
+*   Connect the phone to the network.
+
+*   Now hold the Wi-Fi button on the RICOH THETA for about two to three seconds and let go. The Wi-fi indicator light will blink green to indicate that it is attempting to connect to the network. If it successfully connects to the network. On connecting to the network, the Wi-Fi button indicator light stops blinking and stays solid green. If the RICOH THETA V is not able to connect to the network, repeat the previous steps and make sure that the correct SSID and password for the local network are entered correctly in the step where it was required. Make sure to double check those entries.
+
+
+
+At this point, the smartphone and the RICOH THETA V are connected to the same network (the local network) via a router. The next step is to get the IP address of the RICOH THETA V so that we can use the value to capture the stream.
+
+
+*   Open the RICOH THETA app on the smartphone.
+
+*   Click on the RICOH icon shown below.
+
+*   Click on **Connect via wireless LAN client mode** and select the RICOH THETA V camera’s name which pops up. Note that the name of the RICOH THETA V will only pop up if the smartphone and the RICOH THETA V are connected to the same network.
+
+*   Now enter the **RICOH password** (can you remember) which we set earlier in authentication settings and click OK to connect.
+
+
+
+Now you should be able to see a live stream from the RICOH THETA V. However, this is not our goal. Our goal is to be able to view the live stream from the android app “spaigh”. To do this, follow the following steps:
+
+
+*   From the screen where the livestream from the camera is being displayed (shown below), press the back button of the smartphone.
+
+*   Now click on **Settings** in the top right corner.
+
+*   Click on **Camera settings**.
+
+*   Click on **Camera version**.
+
+*    Note down the IP address of the RICOH THETA V in the row that says **IP Address**. Let's call this address **RICOH_Address** (Write/note this down somewhere).
+
+*   Go back to Camera settings and switch off both the **Sleep Mode** and **Auto power off** options.
+
+
+
+Now that we have the IP address of the RICOH THETA V, we can stream the live video. 
+
+
+*   Hold down the mode button on the RICOH THETA V for about 4 seconds until the light in front of the RICOH THETA V turns solid white (from blue). What this does is that it starts the RTSP streaming from the RICOH THETA V. 
+
+*   Now open the spaigh app and click on the drawer icon.
+
+*   Click on **Settings**.
+
+*   Now, in the option text box below “ENTER STREAM RTSP ADDRESS”, type in the following:
+
+        rtsp://**RICOH_Address**:8554/live?resolution=640x320
+
+
+    Make sure to replace **RICOH_Address** above with the IP address of the RICOH THETA V which we found earlier (we called it RICOH_Address).
+
+*   Now click on **SAVE SETTINGS.**
+
+*   Click the drawer icon again and select **LiveStream** to view the live stream on the android phone. You’ll be prompted to open the livestream using a video player on the smartphone. Select Android Video Player. Download this app from Google Playstore if it is not yet installed on the phone. Note that VLC media player can also be used but is less preferred. 
+
+
+
+And voila,  that’s it! You should now be able to watch the live stream from the app. 
+
+
+
+**RECORDING THE VIDEO STREAM ON THE SERVER**
+
+In order to record the live stream on the server, the following code is run on a terminal in the server:
+
+
+
+*   <code>ffmpeg -i rtsp://<strong>RICOH_Address</strong>[:8554/live?resolution=640x320](http://192.168.0.103:8554/live?resolution=640x320) </code>video-$(date +"%H-%M-%S-%m-%d-%y").mp4
+
+Replace <strong><code>RICOH_Address</code></strong> with the IP address of the RICOH THETA V camera found earlier. And that’s it! If the RICOH THETA V is streaming, the server would capture the video and store it in a file called <strong>video-timestamp.mp4, </strong>where <strong>timestamp</strong> is the timestamp at beginning of the recording. Press ctrl + c in the terminal to stop the recording. 
+

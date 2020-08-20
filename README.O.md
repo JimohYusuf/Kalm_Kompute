@@ -67,6 +67,10 @@
 
 5. To stop the service, click on the “STOP SERVICE” button. You’ll then see the initial startup screen again.
 
+6. To configure settings for the app, click the drawer icon and click on settings  
+
+7. The sensitivity level i.e how sensitive the smartphone is to motion can be configured. Also, the address for the homepage is added so as to be able to navigate to the website by simply clicking the website option in the drawer menu. Also the streaming address of the RICOH THETA camera is configured in the settings page. If these values are not set, the default value is google.com.
+
 
 ### WATCH APPLICATION OPERATION 
 
