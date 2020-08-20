@@ -389,7 +389,7 @@ Now that we have the IP address of the RICOH THETA V, we can stream the live vid
 
 *   Now, in the option text box below “ENTER STREAM RTSP ADDRESS”, type in the following:
 
-        rtsp://**RICOH_Address**:8554/live?resolution=640x320
+*       rtsp://<strong>RICOH_Address</strong>:8554/live?resolution=640x320
 
 
     Make sure to replace **RICOH_Address** above with the IP address of the RICOH THETA V which we found earlier (we called it RICOH_Address).
