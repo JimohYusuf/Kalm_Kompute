@@ -281,7 +281,7 @@ Let’s begin the installation
 
 *   **CALL-IDLE:** This indicates that the user is not having a call and the phone is not ringing. 
 
-*   **CALL-ACTIVE:**This indicates that the user has accepted an incoming call. 
+*   **CALL-ACTIVE:** This indicates that the user has accepted an incoming call. 
 
 *   **RINGING:** This indicates that the user has an incoming call that has not been picked up yet.
 
